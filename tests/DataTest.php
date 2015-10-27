@@ -22,7 +22,7 @@ class DataTest extends TestCase
 
     public function testColumnSize()
     {
-        $definition = $this->loadDefinition('column-size');
+        $definition = $this->loadDefinition('person-column-size');
         $exporter = new Exporter($definition);
 
         $content = $exporter->execute();
