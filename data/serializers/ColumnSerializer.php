@@ -13,7 +13,7 @@ class ColumnSerializer extends Serializer
     /**
      * @inheritdoc
      */
-    public function run($session, $row, $index)
+    protected function run($session, $row, $index)
     {
         $record = [];
         $data = [];
@@ -23,7 +23,7 @@ class ColumnSerializer extends Serializer
             $record[] = $value;
         }
 
-        if ($record) {
+        if (!empty($record)) {
             $data[] = implode($this->exporter->charDelimiter, $record);
         }
 
@@ -31,6 +31,6 @@ class ColumnSerializer extends Serializer
             $data[] = $this->serialize($child);
         }
 
-        return implode($data, "\n");
+        return implode("\n", $data);
     }
 }

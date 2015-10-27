@@ -113,6 +113,6 @@ abstract class Serializer extends Object
      * @param integer $index
      * @return array
      */
-    protected abstract function run($session, $row, $index);
+    abstract protected function run($session, $row, $index);
 
 }
