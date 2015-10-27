@@ -1,30 +1,32 @@
 {
-  "name": "leandrogehlen/yii2-exporter",
-  "description": "Builds layout for export data",
-  "keywords": ["yii2", "extension", "export", "data", "layout"],
-  "homepage": "https://github.com/leandrogehlen/yii2-base",
-  "type": "yii2-extension",
-  "license": "BSD 3-Clause",
-  "authors": [
-    {
-      "name": "Leandro Guindani Gehlen",
-      "email": "leandrogehlen@gmail.com",
-      "homepage": "https://github.com/leandrogehlen"
+    "name": "leandrogehlen/yii2-data-exporter",
+    "description": "Builds layout for export data",
+    "keywords": ["yii2", "extension", "export", "data", "layout"],
+    "homepage": "https://github.com/leandrogehlen/yii2-base",
+    "type": "yii2-extension",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Leandro Guindani Gehlen",
+            "email": "leandrogehlen@gmail.com",
+            "homepage": "https://github.com/leandrogehlen"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/leandrogehlen/yii2-data-exporter/issues?state=open",
+        "source": "https://github.com/leandrogehlen/yii2-data-exporter"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "2.0.6",
+        "yiisoft/yii2-bootstrap": "2.0.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "leandrogehlen\\exporter\\": ""
+        }
     }
-  ],
-  "support": {
-    "issues": "https://github.com/leandrogehlen/yii2-exporter/issues?state=open",
-    "source": "https://github.com/leandrogehlen/yii2-exporter"
-  },
-  "minimum-stability": "dev",
-  "require": {
-    "yiisoft/yii2": "2.0.6",
-    "yiisoft/yii2-bootstrap": "2.0.5"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~4.4"
-  },
-  "autoload": {
-    "psr-4": { "leandrogehlen\\exporter\\": "" }
-  }
 }

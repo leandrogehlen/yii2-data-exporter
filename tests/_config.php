@@ -1,7 +1,7 @@
 <?php
 
 return  [
-    'id' => 'yii2-exporter-test',
+    'id' => 'yii2-data-exporter-test',
     'basePath' => dirname(__DIR__),
     'vendorPath' => __DIR__ . '/../vendor',
     'components' => [
