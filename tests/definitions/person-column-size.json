@@ -1,0 +1,25 @@
+{
+    "description": "Person data exports",
+    "serializer": "leandrogehlen\\exporter\\data\\serializers\\ColumnSerializer",
+    "sessions": [
+        {
+            "name": "person",
+            "providerName": "personProvider",
+            "columns": [
+                {"name": "firstName", "size": 10, "charComplete": " ", "align": "right"},
+                {"name": "lastName", "size": 5, "charComplete": " ", "align": "right"},
+                {"name": "birthDate", "size": 10, "expression": "return date_format(date_create($value), 'd/m/Y');"},
+                {"name": "salary", "dictionaryName": "money"}
+            ]
+        }
+    ],
+    "providers": [
+        {
+            "name": "personProvider",
+            "query": "select * from person"
+        }
+    ],
+    "dictionaries": [
+        {"name": "money", "size": 8, "charComplete": "0", "align": "left"}
+    ]
+}
