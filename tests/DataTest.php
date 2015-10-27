@@ -31,11 +31,13 @@ class DataTest extends TestCase
         $this->assertCount(3, $lines);
         $first = $lines[0];
 
-        $this->assertEquals(33, strlen($first));
-        $this->assertEquals("Administra", substr($first, 0, 10));
-        $this->assertEquals("Root ", substr($first, 10, 5));
-        $this->assertEquals("20/04/1983", substr($first, 15, 10));
-        $this->assertEquals("01000.00", substr($first, 25, 8));
+        $this->assertEquals(39, strlen($first));
+        $this->assertEquals("010", substr($first, 0, 3));
+        $this->assertEquals("Administra", substr($first, 3, 10));
+        $this->assertEquals("Root ", substr($first, 13, 5));
+        $this->assertEquals("20/04/1983", substr($first, 18, 10));
+        $this->assertEquals("00153000", substr($first, 28, 8));
+        $this->assertEquals("Yes", substr($first, 36, 3));
     }
 
 

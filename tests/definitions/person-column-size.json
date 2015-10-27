@@ -6,10 +6,12 @@
             "name": "person",
             "providerName": "personProvider",
             "columns": [
-                {"name": "firstName", "size": 10, "charComplete": " ", "align": "right"},
-                {"name": "lastName", "size": 5, "charComplete": " ", "align": "right"},
+                {"name": "recordType", "size": 3, "value": "010"},
+                {"name": "firstName", "size": 10, "charComplete": " "},
+                {"name": "lastName", "size": 5, "charComplete": " "},
                 {"name": "birthDate", "size": 10, "expression": "return date_format(date_create($value), 'd/m/Y');"},
-                {"name": "salary", "dictionaryName": "money"}
+                {"name": "salary", "dictionaryName": "money"},
+                {"name": "active", "dictionaryName": "boolean"}
             ]
         }
     ],
@@ -20,6 +22,7 @@
         }
     ],
     "dictionaries": [
-        {"name": "money", "size": 8, "charComplete": "0", "align": "left"}
+        {"name": "money", "size": 8, "charComplete": "0", "align": "right", "expression": "return str_replace('.', '', $value);"},
+        {"name": "boolean", "size": 3, "charComplete": " ", "format": "boolean"}
     ]
 }

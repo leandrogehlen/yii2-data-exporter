@@ -17,7 +17,8 @@ class m151025_073418_tests_init extends Migration
             'firstName' => $this->string()->notNull(),
             'lastName' => $this->string()->notNull(),
             'birthDate' => $this->dateTime(),
-            'salary' => $this->decimal(18,2)
+            'salary' => $this->decimal(18,2),
+            'active' => $this->boolean()
         ], $tableOptions);
     }
 

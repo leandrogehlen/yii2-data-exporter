@@ -17,20 +17,6 @@ class Session extends Element
     public $owner;
 
     /**
-     * @var array column configuration. Each array element represents the configuration
-     * for one particular column. For example,
-     *
-     * ```php
-     * [
-     *     ['name' => 'id', 'align' => Column::ALIGN_RIGHT, 'size' => 10, 'charComplete' => 0],
-     *     ['name' => 'name', 'typeName' => 'text']
-     *     ['name' => 'birthDate', 'expression' => 'return date('Y-m-d')']
-     * ]
-     * ```
-     */
-    public $columns = [];
-
-    /**
      * @var string
      */
     public $providerName;
@@ -39,11 +25,6 @@ class Session extends Element
      * @var boolean
      */
     public $new;
-
-    /**
-     * @var array
-     */
-    public $sessions = [];
 
     /**
      * @var boolean whether this session is visible. Defaults to true.
@@ -59,6 +40,25 @@ class Session extends Element
      * @var integer
      */
     public $rows;
+
+    /**
+     * @var array
+     */
+    public $sessions = [];
+
+    /**
+     * @var array column configuration. Each array element represents the configuration
+     * for one particular column. For example,
+     *
+     * ```php
+     * [
+     *     ['name' => 'id', 'align' => 'left', 'size' => 10, 'charComplete' => 0],
+     *     ['name' => 'firstName', 'dictionaryName' => 'text']
+     *     ['name' => 'birthDate', 'expression' => 'return date('Y-m-d');']
+     * ]
+     * ```
+     */
+    public $columns = [];
 
 
     /**

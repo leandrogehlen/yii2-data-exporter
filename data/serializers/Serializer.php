@@ -3,6 +3,7 @@
 namespace leandrogehlen\exporter\data\serializers;
 
 use leandrogehlen\exporter\data\Column;
+use leandrogehlen\exporter\data\Dictionary;
 use leandrogehlen\exporter\data\Exporter;
 use leandrogehlen\exporter\data\Session;
 use yii\base\Object;
@@ -58,7 +59,7 @@ abstract class Serializer extends Object
         $charComplete = $column->charComplete;
         $size = $column->size;
         $format = $column->format;
-        $padding = $column->getPadding();
+        $align = $column->align;
 
         $dictionary = $column->dictionaryName ? $this->exporter->findDictionary($column->dictionaryName) : null;
         if ($dictionary) {
@@ -68,8 +69,8 @@ abstract class Serializer extends Object
             if ($charComplete === null) {
                 $charComplete = $dictionary->charComplete;
             }
-            if ($padding === null) {
-                $padding = $dictionary->getPadding();
+            if ($align === null) {
+                $align = $dictionary->align;
             }
             if ($size === null) {
                 $size = $dictionary->size;
@@ -79,18 +80,34 @@ abstract class Serializer extends Object
             }
         }
 
+        if ($format) {
+            $value = $this->exporter->formatter->format($value, $format);
+        }
+
         if ($expression) {
             $value = $this->exporter->evaluate($expression, ['value' => $value]);
         }
 
         $value = (string) $value;
-        $value = ($size > strlen($value)) ? str_pad($value, $size, $charComplete, $padding) : substr($value, 0, $size);
+        $padding = $this->toPadding($align);
+        return  ($size > strlen($value)) ? str_pad($value, $size, $charComplete, $padding) : substr($value, 0, $size);
+    }
 
-        if ($format) {
-            $value = $this->exporter->formatter->format($value, $format);
+    /**
+     * Converts the [[align]] property to valid padding type
+     * @see {@link http://php.net/manual/pt_BR/function.str-pad.php php manual}.
+     * @param string $align the column alignment
+     * @return int
+     */
+    private function toPadding($align)
+    {
+        if ($align == Dictionary::ALIGN_RIGHT) {
+            return STR_PAD_LEFT;
+        } elseif ($align == Dictionary::ALIGN_BOTH) {
+            return STR_PAD_BOTH;
+        } else {
+            return STR_PAD_RIGHT;
         }
-
-        return $value;
     }
 
     /**
@@ -98,7 +115,7 @@ abstract class Serializer extends Object
      * @param Session $session the current session
      * @param array $row
      * @param integer $index
-     * @return array
+     * @return string
      */
     abstract protected function run($session, $row, $index);
 
