@@ -3,7 +3,7 @@
 namespace leandrogehlen\exporter\data;
 
 /**
- * Represents the layout column element
+ * Represents the layout column element.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */

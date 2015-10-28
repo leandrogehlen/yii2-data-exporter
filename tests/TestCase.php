@@ -20,23 +20,24 @@ class TestCase extends \PHPUnit_Framework_TestCase
     /**
      * This method is called before the first test of this test class is run.
      * Attempts to load vendor autoloader.
+     *
      * @throws \yii\base\NotSupportedException
      */
     public static function setUpBeforeClass()
     {
-        $vendorDir = __DIR__ . '/../vendor';
-        $vendorAutoload = $vendorDir . '/autoload.php';
+        $vendorDir = __DIR__.'/../vendor';
+        $vendorAutoload = $vendorDir.'/autoload.php';
         if (file_exists($vendorAutoload)) {
-            require_once($vendorAutoload);
+            require_once $vendorAutoload;
         } else {
             throw new NotSupportedException("Vendor autoload file '{$vendorAutoload}' is missing.");
         }
-        require_once($vendorDir . '/yiisoft/yii2/Yii.php');
+        require_once $vendorDir.'/yiisoft/yii2/Yii.php';
         Yii::setAlias('@vendor', $vendorDir);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function globalFixtures()
     {
@@ -50,9 +51,12 @@ class TestCase extends \PHPUnit_Framework_TestCase
      *
      * Do not call this method directly as it is a PHP magic method that
      * will be implicitly called when executing `$value = $object->property;`.
+     *
      * @param string $name the property name
-     * @return mixed the property value
+     *
      * @throws UnknownPropertyException if the property is not defined
+     *
+     * @return mixed the property value
      */
     public function __get($name)
     {
@@ -60,25 +64,26 @@ class TestCase extends \PHPUnit_Framework_TestCase
         if ($fixture !== null) {
             return $fixture;
         } else {
-            throw new UnknownPropertyException('Getting unknown property: ' . get_class($this) . '::' . $name);
+            throw new UnknownPropertyException('Getting unknown property: '.get_class($this).'::'.$name);
         }
     }
 
     /**
-     * Load application configuration
+     * Load application configuration.
+     *
      * @return array
      */
     protected function loadConfig()
     {
-        $config = $config = require(__DIR__ . '/_config.php');
+        $config = $config = require __DIR__.'/_config.php';
         $config['basePath'] = __DIR__;
-        $config['vendorPath'] = dirname(dirname(__DIR__)) . '/vendor';
+        $config['vendorPath'] = dirname(dirname(__DIR__)).'/vendor';
+
         return $config;
     }
 
-
     /**
-     * Populates Yii::$app with a new console application
+     * Populates Yii::$app with a new console application.
      */
     protected function mockApplication()
     {
@@ -86,9 +91,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
         Yii::$container = new Container();
     }
 
-
     /**
-     * Sets up before test
+     * Sets up before test.
      */
     protected function setUp()
     {

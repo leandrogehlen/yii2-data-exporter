@@ -3,7 +3,7 @@
 namespace leandrogehlen\exporter\data;
 
 /**
- * Represents the layout event element
+ * Represents the layout event element.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */
@@ -16,5 +16,4 @@ class Event extends Element
      * please refer to the {@link http://www.php.net/manual/en/language.expressions.php php manual}.
      */
     public $expression;
-
 }

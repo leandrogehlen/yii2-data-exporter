@@ -3,14 +3,14 @@
 namespace leandrogehlen\exporter\data;
 
 /**
- * Represents the Provider layout element
+ * Represents the Provider layout element.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */
 class Provider extends Element
 {
     /**
-     * @var string $sql the SQL statement to be executed
+     * @var string the SQL statement to be executed
      */
     public $query;
 
@@ -18,5 +18,4 @@ class Provider extends Element
      * @var string
      */
     public $masterName;
-
 }
