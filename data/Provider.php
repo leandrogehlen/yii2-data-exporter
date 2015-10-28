@@ -18,5 +18,4 @@ class Provider extends Element
      * @var string
      */
     public $masterName;
-
 }

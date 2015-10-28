@@ -16,5 +16,4 @@ class Event extends Element
      * please refer to the {@link http://www.php.net/manual/en/language.expressions.php php manual}.
      */
     public $expression;
-
 }

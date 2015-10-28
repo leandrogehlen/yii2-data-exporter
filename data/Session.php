@@ -71,5 +71,4 @@ class Session extends Element
         $this->initCollection($this->columns, Column::className());
         $this->initCollection($this->sessions, Session::className(), ['owner' => $this]);
     }
-
 }

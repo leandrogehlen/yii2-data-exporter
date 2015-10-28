@@ -22,5 +22,4 @@ class Variable extends Element
      * @var mixed the variable value
      */
     public $value;
-
 }

@@ -168,5 +168,4 @@ abstract class Serializer extends Object
      * @return string
      */
     abstract protected function run($session, $row, $index, $master = []);
-
 }

@@ -31,7 +31,6 @@ class JsonSerializer extends Serializer
     protected function run($session, $row, $index, $master = [])
     {
         $record = [];
-        $data = [];
 
         foreach ($session->columns as $column) {
             $value = $this->extractValue($column, $row);
@@ -43,8 +42,6 @@ class JsonSerializer extends Serializer
             foreach ($session->sessions as $child) {
                 $record[$child->name] = Json::decode($this->serialize($child, $row));
             }
-
-            $data[] = Json::encode($record);
         }
 
         return Json::encode($record);

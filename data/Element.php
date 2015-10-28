@@ -16,5 +16,4 @@ class Element extends Object
      * @var string the element name
      */
     public $name;
-
 }
