@@ -84,7 +84,7 @@ class Exporter extends Component
             'exporter' => $this
         ]);
 
-        if ($this->formatter == null) {
+        if ($this->formatter === null) {
             $this->formatter = Yii::$app->getFormatter();
         } elseif (is_array($this->formatter)) {
             $this->formatter = Yii::createObject($this->formatter);
