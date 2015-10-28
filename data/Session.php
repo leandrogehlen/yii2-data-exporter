@@ -12,37 +12,37 @@ class Session extends Element
     use OwnedCollectionTrait;
 
     /**
-     * @var Exporter|Session
+     * @var Session the owner session.
      */
     public $owner;
 
     /**
-     * @var string
+     * @var string the provider name.
      */
     public $providerName;
 
     /**
-     * @var boolean
+     * @var boolean whether this session generate new content. Defaults to false.
      */
-    public $new;
+    public $new = false;
 
     /**
-     * @var boolean whether this session is visible. Defaults to true.
+     * @var boolean whether this session name is visible. Defaults to true.
      */
     public $visible = true;
 
     /**
-     * @var boolean whether this session is visible. Defaults to true.
+     * @var boolean whether this session will be executed. Defaults to true.
      */
     public $exported = true;
 
     /**
-     * @var integer
+     * @var integer the rows count.
      */
     public $rows;
 
     /**
-     * @var array
+     * @var Session[]
      */
     public $sessions = [];
 
@@ -62,14 +62,14 @@ class Session extends Element
 
 
     /**
-     * Initializes the grid view.
-     * This method will initialize required property values and instantiate [[columns]] objects.
+     * Initializes the session.
+     * This method will instantiate [[columns]] and [[sessions]] objects.
      */
     public function init()
     {
         parent::init();
         $this->initCollection($this->columns, Column::className());
-        $this->initCollection($this->sessions, Session::className());
+        $this->initCollection($this->sessions, Session::className(), ['owner' => $this]);
     }
 
 }

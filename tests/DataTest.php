@@ -34,7 +34,7 @@ class DataTest extends TestCase
 
     public function testColumnSize()
     {
-        $exporter = $this->createExporter('person-column-size');
+        $exporter = $this->createExporter('column-size');
         $content = $exporter->execute();
 
         $lines = explode("\n", $content);
@@ -52,7 +52,7 @@ class DataTest extends TestCase
 
     public function testColumnDelimiter()
     {
-        $exporter = $this->createExporter('order-column-delimiter');
+        $exporter = $this->createExporter('column-delimiter');
         $content = $exporter->execute();
 
         $lines = explode("\n", $content);
@@ -80,6 +80,39 @@ class DataTest extends TestCase
         $this->assertEmpty($content);
     }
 
+
+    public function testJson()
+    {
+        $exporter = $this->createExporter('data-json');
+        $content = $exporter->execute();
+
+        $json = Json::decode($content);
+        $this->assertCount(2, $json);
+
+        $first = $json[0];
+        $this->assertEquals('010', $first["type"]);
+        $this->assertEquals('001', $first["number"]);
+        $this->assertEquals(date('Y-m-d'), $first["created_at"]);
+        $this->assertEquals('Administrator', $first["person"]);
+        $this->assertEquals('The first order', $first["description"]);
+
+        $details = $first["details"];
+        $this->assertCount(2, $details);
+
+        $first = $details[0];
+        $this->assertEquals('020', $first["type"]);
+        $this->assertEquals('1', $first["product_id"]);
+        $this->assertEquals('2', $first["quantity"]);
+        $this->assertEquals('10.00', $first["price"]);
+        $this->assertEquals('20.00', $first["total"]);
+
+        $second = $details[1];
+        $this->assertEquals('020', $second["type"]);
+        $this->assertEquals('2', $second["product_id"]);
+        $this->assertEquals('5', $second["quantity"]);
+        $this->assertEquals('20.00', $second["price"]);
+        $this->assertEquals('100.00', $second["total"]);
+    }
 
     protected function createExporter($name)
     {

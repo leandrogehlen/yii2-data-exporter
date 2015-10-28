@@ -3,7 +3,7 @@
 namespace leandrogehlen\exporter\data;
 
 /**
- * Represents the layout dictionary element
+ * Represents the layout dictionary element.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */

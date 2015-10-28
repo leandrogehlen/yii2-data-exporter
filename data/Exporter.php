@@ -25,14 +25,9 @@ class Exporter extends Component
     public $serializer;
 
     /**
-     * @var boolean
-     */
-    public $autoComplete;
-
-    /**
      * @var string
      */
-    public $charDelimiter = '';
+    public $charDelimiter;
 
     /**
      * @var string
@@ -40,7 +35,7 @@ class Exporter extends Component
     public $description;
 
     /**
-     * @var array
+     * @var Session[]
      */
     public $sessions = [];
 
@@ -60,18 +55,12 @@ class Exporter extends Component
     public $providers = [];
 
     /**
-     * @var Variable[]
-     */
-    public $variables = [];
-
-    /**
      * @var Parameter[]
      */
     public $parameters = [];
 
     /**
-     * @var Connection|array|string the DB connection object or the application component ID of the DB connection to use
-     * when applying migrations
+     * @var Connection|array|string the DB connection object or the application component ID of the DB connection
      */
     public $db = 'db';
 
@@ -81,7 +70,6 @@ class Exporter extends Component
      * instance. If this property is not set, the "formatter" application component will be used.
      */
     public $formatter;
-
 
     /**
      * Initializes the exporter.
@@ -109,10 +97,8 @@ class Exporter extends Component
         $this->initCollection($this->dictionaries, Dictionary::className());
         $this->initCollection($this->events, Event::className());
         $this->initCollection($this->providers, Provider::className());
-        $this->initCollection($this->variables, Variable::className());
         $this->initCollection($this->parameters, Parameter::className());
     }
-
 
     /**
      * Evaluates a PHP expression.
@@ -179,17 +165,16 @@ class Exporter extends Component
         return null;
     }
 
-
     /**
      * Performs data conversion
      * @return string the formatted data
      */
     public function execute()
     {
-        $lines = [];
+        $data = [];
         foreach ($this->sessions as $session) {
-            $lines[] = $this->serializer->serialize($session);
+            $data[] = $this->serializer->serialize($session);
         }
-        return implode("\n", $lines);
+        return implode($this->serializer->separator, $data);
     }
 }

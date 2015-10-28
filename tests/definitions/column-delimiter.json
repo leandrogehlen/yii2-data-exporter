@@ -9,7 +9,7 @@
             "columns": [
                 {"name": "type", "value": "010"},
                 {"name": "number"},
-                {"name": "create_at", "expression": "return date_format(date_create($value), 'Y-m-d');"},
+                {"name": "created_at", "expression": "return date_format(date_create($value), 'Y-m-d');"},
                 {"name": "person"},
                 {"name": "description"}
             ],

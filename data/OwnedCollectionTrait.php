@@ -16,11 +16,13 @@ trait OwnedCollectionTrait
      * @param array $collection collection configuration. Each array element represents
      * the configuration for one particular element.
      * @param string $class the element class name
+     * @param array $config name-value pairs that will be used to initialize the object properties
      * @throws \yii\base\InvalidConfigException
      */
-    protected function initCollection(&$collection, $class)
+    protected function initCollection(&$collection, $class, $config = [])
     {
         foreach ($collection as $i => $element) {
+            $element = array_merge($config, $element);
             $element = Yii::createObject(array_merge([
                 'class' => $class
             ], $element));

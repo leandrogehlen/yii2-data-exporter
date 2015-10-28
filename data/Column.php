@@ -10,7 +10,7 @@ namespace leandrogehlen\exporter\data;
 class Column extends Dictionary
 {
     /**
-     * @var string The dictionary name
+     * @var string The dictionary name.
      */
     public $dictionaryName;
 }

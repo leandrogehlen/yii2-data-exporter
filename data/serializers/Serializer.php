@@ -23,12 +23,17 @@ abstract class Serializer extends Object
     public $exporter;
 
     /**
-     * Formats the specified session
+     * @var string data separator
+     */
+    public $separator = "\n";
+
+    /**
+     * Formats the specified session.
      * @param Session $session
      * @param array $master
      * @return string
      */
-    public function serialize($session, array $master = [])
+    public function serialize($session, $master = [])
     {
         if (!$session->exported) {
             return [];
@@ -43,6 +48,16 @@ abstract class Serializer extends Object
             $session->rows = $i++;
         }
 
+        return $this->formatData($data);
+    }
+
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function formatData($data)
+    {
         return implode("\n", $data);
     }
 
@@ -77,7 +92,7 @@ abstract class Serializer extends Object
     }
 
     /**
-     * Extract formatted value
+     * Extract formatted value.
      * @param Column $column
      * @param array $row
      * @return mixed|string
@@ -119,7 +134,7 @@ abstract class Serializer extends Object
         }
 
         $value = (string) $value;
-        if ($this->exporter->charDelimiter !== null && !$size) {
+        if (($this->exporter->charDelimiter !== null && !$size) || $size === "false") {
             return $value;
         } else {
             $padding = $this->toPadding($align);
@@ -128,7 +143,7 @@ abstract class Serializer extends Object
     }
 
     /**
-     * Converts the [[align]] property to valid padding type
+     * Converts the [[align]] property to valid padding type.
      * @see {@link http://php.net/manual/pt_BR/function.str-pad.php php manual}.
      * @param string $align the column alignment
      * @return int
@@ -152,6 +167,6 @@ abstract class Serializer extends Object
      * @param array $master
      * @return string
      */
-    abstract protected function run($session, $row, $index, array $master = []);
+    abstract protected function run($session, $row, $index, $master = []);
 
 }
