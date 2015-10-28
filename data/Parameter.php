@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: leandro
- * Date: 28/10/2015
- * Time: 10:15
- */
 
 namespace leandrogehlen\exporter\data;
 
