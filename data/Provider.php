@@ -10,11 +10,6 @@ namespace leandrogehlen\exporter\data;
 class Provider extends Element
 {
     /**
-     * @var string the provider name
-     */
-    public $name;
-
-    /**
      * @var string $sql the SQL statement to be executed
      */
     public $query;

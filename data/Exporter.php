@@ -50,19 +50,24 @@ class Exporter extends Component
     public $dictionaries = [];
 
     /**
-     * @var array
+     * @var Event[]
      */
     public $events = [];
 
     /**
-     * @var array
+     * @var Provider[]
      */
     public $providers = [];
 
     /**
-     * @var array
+     * @var Variable[]
      */
     public $variables = [];
+
+    /**
+     * @var Parameter[]
+     */
+    public $parameters = [];
 
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection to use
@@ -105,6 +110,7 @@ class Exporter extends Component
         $this->initCollection($this->events, Event::className());
         $this->initCollection($this->providers, Provider::className());
         $this->initCollection($this->variables, Variable::className());
+        $this->initCollection($this->parameters, Parameter::className());
     }
 
 
@@ -153,6 +159,21 @@ class Exporter extends Component
         foreach ($this->dictionaries as $dictionary) {
             if ($dictionary->name == $name) {
                 return $dictionary;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds Parameter instance by the given name.
+     * @param string $name the dictionary name
+     * @return Parameter|null
+     */
+    public function findParameter($name)
+    {
+        foreach ($this->parameters as $param) {
+            if ($param->name == $name) {
+                return $param;
             }
         }
         return null;

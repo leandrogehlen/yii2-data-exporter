@@ -12,7 +12,7 @@ class ColumnSerializer extends Serializer
     /**
      * @inheritdoc
      */
-    protected function run($session, $row, $index, $master)
+    protected function run($session, $row, $index, array $master = [])
     {
         $record = [];
         $data = [];

@@ -73,6 +73,11 @@ class DataTest extends TestCase
         $this->assertEquals(2, $second[2]);
         $this->assertEquals(10.00, $second[3]);
         $this->assertEquals(20.00, $second[4]);
+
+        $exporter->parameters[0]->value = date('Y-m-d', strtotime("+1 day"));
+        $content = $exporter->execute();
+
+        $this->assertEmpty($content);
     }
 
 

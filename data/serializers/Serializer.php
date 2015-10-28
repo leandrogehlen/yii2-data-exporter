@@ -28,7 +28,7 @@ abstract class Serializer extends Object
      * @param array $master
      * @return string
      */
-    public function serialize($session, $master = null)
+    public function serialize($session, array $master = [])
     {
         if (!$session->exported) {
             return [];
@@ -59,7 +59,17 @@ abstract class Serializer extends Object
         if (preg_match_all('/:\w+/', $provider->query, $matches)) {
             foreach ($matches as $param) {
                 $name = substr($param[0], 1);
-                $params[$name] = ArrayHelper::getValue($master, $name);
+                $value = ArrayHelper::getValue($master, $name);
+
+                if ($value === null) {
+                    $parameter = $this->exporter->findParameter($name);
+                    if ($parameter !== null) {
+                        if ($parameter->value === null && $parameter->expression) {
+                            $value = $this->exporter->evaluate($parameter->expression, []);
+                        }
+                    }
+                }
+                $params[$name] = $value;
             }
         }
 
@@ -142,6 +152,6 @@ abstract class Serializer extends Object
      * @param array $master
      * @return string
      */
-    abstract protected function run($session, $row, $index, $master);
+    abstract protected function run($session, $row, $index, array $master = []);
 
 }

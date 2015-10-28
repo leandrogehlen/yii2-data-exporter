@@ -31,10 +31,17 @@
     "providers": [
         {
             "name": "order-provider",
-            "query": "select invoice.*, person.firstName as person from invoice join person on (person.id = invoice.person_id)"
+            "query": "select invoice.*, person.firstName as person from invoice join person on (person.id = invoice.person_id) where invoice.created_at = :created_at"
         },{
             "name": "detail-provider",
             "query": "select * from invoice_details where invoice_id = :id"
+        }
+    ],
+    "parameters": [
+        {
+            "name": "created_at",
+            "label": "Created At",
+            "expression": "return date('Y-m-d');"
         }
     ]
 }
