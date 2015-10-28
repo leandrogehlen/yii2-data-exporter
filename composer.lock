@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "43bd104f8e091b507ac1bc45f1f73fe1",
-    "content-hash": "1863c16165796efebbb242ad70e92c03",
+    "hash": "7a261f06c3c2ef2267e8805b82bd4be8",
+    "content-hash": "b657a22e8c2b6ff74a7e1f9126181f79",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1412,25 +1412,25 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "dev-master",
+            "version": "2.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "8d32eb597b531eb915b4fee3dc582ade5ae1fe6a"
+                "reference": "f301c743e1495960f87686c2125bf3fbed9896eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/8d32eb597b531eb915b4fee3dc582ade5ae1fe6a",
-                "reference": "8d32eb597b531eb915b4fee3dc582ade5ae1fe6a",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f301c743e1495960f87686c2125bf3fbed9896eb",
+                "reference": "f301c743e1495960f87686c2125bf3fbed9896eb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -1454,7 +1454,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-13 16:01:35"
+            "time": "2015-10-28 04:32:32"
         }
     ],
     "aliases": [],
