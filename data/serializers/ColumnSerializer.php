@@ -10,7 +10,7 @@ namespace leandrogehlen\exporter\data\serializers;
 class ColumnSerializer extends Serializer
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function run($session, $row, $index, array $master = [])
     {

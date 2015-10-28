@@ -3,7 +3,7 @@
 namespace leandrogehlen\exporter\data;
 
 /**
- * Represents the Parameter layout element
+ * Represents the Parameter layout element.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */
@@ -15,7 +15,7 @@ class Parameter extends Variable
     public $label;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $required = false;
 }

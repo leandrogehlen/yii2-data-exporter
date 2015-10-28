@@ -3,7 +3,7 @@
 namespace leandrogehlen\exporter\data;
 
 /**
- * Represents the layout dictionary element
+ * Represents the layout dictionary element.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */
@@ -29,7 +29,7 @@ class Dictionary extends Variable
     public $format;
 
     /**
-     * @var integer the column width
+     * @var int the column width
      */
     public $size;
 }

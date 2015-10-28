@@ -25,7 +25,7 @@ class Exporter extends Component
     public $serializer;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $autoComplete;
 
@@ -71,17 +71,16 @@ class Exporter extends Component
 
     /**
      * @var Connection|array|string the DB connection object or the application component ID of the DB connection to use
-     * when applying migrations
+     *                              when applying migrations
      */
     public $db = 'db';
 
     /**
      * @var array|Formatter the formatter used to format model attribute values into displayable texts.
-     * This can be either an instance of [[Formatter]] or an configuration array for creating the [[Formatter]]
-     * instance. If this property is not set, the "formatter" application component will be used.
+     *                      This can be either an instance of [[Formatter]] or an configuration array for creating the [[Formatter]]
+     *                      instance. If this property is not set, the "formatter" application component will be used.
      */
     public $formatter;
-
 
     /**
      * Initializes the exporter.
@@ -92,8 +91,8 @@ class Exporter extends Component
         parent::init();
         $this->db = Instance::ensure($this->db, Connection::className());
         $this->serializer = Yii::createObject([
-            'class' => $this->serializer,
-            'exporter' => $this
+            'class'    => $this->serializer,
+            'exporter' => $this,
         ]);
 
         if ($this->formatter == null) {
@@ -113,7 +112,6 @@ class Exporter extends Component
         $this->initCollection($this->parameters, Parameter::className());
     }
 
-
     /**
      * Evaluates a PHP expression.
      *
@@ -125,18 +123,22 @@ class Exporter extends Component
      * please refer to the {@link http://www.php.net/manual/en/language.expressions.php php manual}.
      *
      * @param string $expression a PHP expression or PHP callback to be evaluated.
-     * @param array $data additional parameters to be passed to the above expression.
+     * @param array  $data       additional parameters to be passed to the above expression.
+     *
      * @return mixed the expression result
      */
     public function evaluate($expression, $data)
     {
         extract($data);
+
         return eval($expression);
     }
 
     /**
      * Finds Provider instance by the given name.
+     *
      * @param string $name the provider name
+     *
      * @return Provider|null
      */
     public function findProvider($name)
@@ -146,12 +148,15 @@ class Exporter extends Component
                 return $provider;
             }
         }
-        return null;
+
+        return;
     }
 
     /**
      * Finds Dictionary instance by the given name.
+     *
      * @param string $name the dictionary name
+     *
      * @return Dictionary|null
      */
     public function findDictionary($name)
@@ -161,12 +166,15 @@ class Exporter extends Component
                 return $dictionary;
             }
         }
-        return null;
+
+        return;
     }
 
     /**
      * Finds Parameter instance by the given name.
+     *
      * @param string $name the dictionary name
+     *
      * @return Parameter|null
      */
     public function findParameter($name)
@@ -176,12 +184,13 @@ class Exporter extends Component
                 return $param;
             }
         }
-        return null;
+
+        return;
     }
 
-
     /**
-     * Performs data conversion
+     * Performs data conversion.
+     *
      * @return string the formatted data
      */
     public function execute()
@@ -190,6 +199,7 @@ class Exporter extends Component
         foreach ($this->sessions as $session) {
             $lines[] = $this->serializer->serialize($session);
         }
+
         return implode("\n", $lines);
     }
 }

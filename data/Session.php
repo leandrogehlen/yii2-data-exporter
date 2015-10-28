@@ -3,7 +3,7 @@
 namespace leandrogehlen\exporter\data;
 
 /**
- * Represents the Session layout element
+ * Represents the Session layout element.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */
@@ -22,22 +22,22 @@ class Session extends Element
     public $providerName;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $new;
 
     /**
-     * @var boolean whether this session is visible. Defaults to true.
+     * @var bool whether this session is visible. Defaults to true.
      */
     public $visible = true;
 
     /**
-     * @var boolean whether this session is visible. Defaults to true.
+     * @var bool whether this session is visible. Defaults to true.
      */
     public $exported = true;
 
     /**
-     * @var integer
+     * @var int
      */
     public $rows;
 
@@ -48,7 +48,7 @@ class Session extends Element
 
     /**
      * @var array column configuration. Each array element represents the configuration
-     * for one particular column. For example,
+     *            for one particular column. For example,
      *
      * ```php
      * [
@@ -60,7 +60,6 @@ class Session extends Element
      */
     public $columns = [];
 
-
     /**
      * Initializes the grid view.
      * This method will initialize required property values and instantiate [[columns]] objects.
@@ -69,7 +68,6 @@ class Session extends Element
     {
         parent::init();
         $this->initCollection($this->columns, Column::className());
-        $this->initCollection($this->sessions, Session::className());
+        $this->initCollection($this->sessions, self::className());
     }
-
 }

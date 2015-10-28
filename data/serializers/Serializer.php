@@ -9,9 +9,8 @@ use leandrogehlen\exporter\data\Session;
 use yii\base\Object;
 use yii\helpers\ArrayHelper;
 
-
 /**
- * Serializer converts DB data into specific before it is sent out
+ * Serializer converts DB data into specific before it is sent out.
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */
@@ -23,9 +22,11 @@ abstract class Serializer extends Object
     public $exporter;
 
     /**
-     * Formats the specified session
+     * Formats the specified session.
+     *
      * @param Session $session
-     * @param array $master
+     * @param array   $master
+     *
      * @return string
      */
     public function serialize($session, array $master = [])
@@ -48,7 +49,9 @@ abstract class Serializer extends Object
 
     /**
      * Executes the query statement and returns ALL rows at once.
+     *
      * @param string $providerName the provider name
+     *
      * @return array
      */
     protected function executeProvider($providerName, $master)
@@ -77,9 +80,11 @@ abstract class Serializer extends Object
     }
 
     /**
-     * Extract formatted value
+     * Extract formatted value.
+     *
      * @param Column $column
-     * @param array $row
+     * @param array  $row
+     *
      * @return mixed|string
      */
     protected function extractValue($column, $row)
@@ -123,14 +128,18 @@ abstract class Serializer extends Object
             return $value;
         } else {
             $padding = $this->toPadding($align);
+
             return ($size > strlen($value)) ? str_pad($value, $size, $charComplete, $padding) : substr($value, 0, $size);
         }
     }
 
     /**
-     * Converts the [[align]] property to valid padding type
+     * Converts the [[align]] property to valid padding type.
+     *
      * @see {@link http://php.net/manual/pt_BR/function.str-pad.php php manual}.
+     *
      * @param string $align the column alignment
+     *
      * @return int
      */
     private function toPadding($align)
@@ -145,13 +154,14 @@ abstract class Serializer extends Object
     }
 
     /**
-     * Formats the specified row
+     * Formats the specified row.
+     *
      * @param Session $session the current session
-     * @param array $row
-     * @param integer $index
-     * @param array $master
+     * @param array   $row
+     * @param int     $index
+     * @param array   $master
+     *
      * @return string
      */
     abstract protected function run($session, $row, $index, array $master = []);
-
 }
