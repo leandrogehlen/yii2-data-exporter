@@ -116,7 +116,7 @@ class DataTest extends TestCase
 
     protected function createExporter($name)
     {
-        $config = Json::decode(file_get_contents( __DIR__ . "/definitions/$name.json"));
+        $config = include __DIR__ . "/definitions/$name.php";
         return new Exporter($config);
     }
 }

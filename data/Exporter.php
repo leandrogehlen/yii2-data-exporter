@@ -101,26 +101,6 @@ class Exporter extends Component
     }
 
     /**
-     * Evaluates a PHP expression.
-     *
-     * The second parameter will be "extracted" into PHP variables
-     * that can be directly accessed in the expression. See {@link http://us.php.net/manual/en/function.extract.php PHP extract}
-     * for more details.
-     *
-     * A PHP expression can be any PHP code that has a value. To learn more about what an expression is,
-     * please refer to the {@link http://www.php.net/manual/en/language.expressions.php php manual}.
-     *
-     * @param string $expression a PHP expression or PHP callback to be evaluated.
-     * @param array $data additional parameters to be passed to the above expression.
-     * @return mixed the expression result
-     */
-    public function evaluate($expression, $data)
-    {
-        extract($data);
-        return eval($expression);
-    }
-
-    /**
      * Finds Provider instance by the given name.
      * @param string $name the provider name
      * @return Provider|null
