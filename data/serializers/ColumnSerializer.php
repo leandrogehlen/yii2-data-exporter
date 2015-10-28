@@ -9,11 +9,10 @@ namespace leandrogehlen\exporter\data\serializers;
  */
 class ColumnSerializer extends Serializer
 {
-
     /**
      * @inheritdoc
      */
-    protected function run($session, $row, $index)
+    protected function run($session, $row, $index, $master)
     {
         $record = [];
         $data = [];
@@ -28,7 +27,7 @@ class ColumnSerializer extends Serializer
         }
 
         foreach ($session->sessions as $child) {
-            $data[] = $this->serialize($child);
+            $data[] = $this->serialize($child, $row);
         }
 
         return implode("\n", $data);

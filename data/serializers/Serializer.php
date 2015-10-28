@@ -25,25 +25,45 @@ abstract class Serializer extends Object
     /**
      * Formats the specified session
      * @param Session $session
+     * @param array $master
      * @return string
      */
-    public function serialize($session)
+    public function serialize($session, $master = null)
     {
         if (!$session->exported) {
             return [];
         }
 
         $data = [];
-        $provider = $this->exporter->findProvider($session->providerName);
-        $rows = $this->exporter->db->createCommand($provider->query)->queryAll();
+        $rows = $this->executeProvider($session->providerName, $master);
 
         $i = 0;
         foreach ($rows as $row) {
-            $data[] = $this->run($session, $row, $i);
+            $data[] = $this->run($session, $row, $i, $master);
             $session->rows = $i++;
         }
 
         return implode("\n", $data);
+    }
+
+    /**
+     * Executes the query statement and returns ALL rows at once.
+     * @param string $providerName the provider name
+     * @return array
+     */
+    protected function executeProvider($providerName, $master)
+    {
+        $params = [];
+        $provider = $this->exporter->findProvider($providerName);
+
+        if (preg_match_all('/:\w+/', $provider->query, $matches)) {
+            foreach ($matches as $param) {
+                $name = substr($param[0], 1);
+                $params[$name] = ArrayHelper::getValue($master, $name);
+            }
+        }
+
+        return $this->exporter->db->createCommand($provider->query, $params)->queryAll();
     }
 
     /**
@@ -89,8 +109,12 @@ abstract class Serializer extends Object
         }
 
         $value = (string) $value;
-        $padding = $this->toPadding($align);
-        return  ($size > strlen($value)) ? str_pad($value, $size, $charComplete, $padding) : substr($value, 0, $size);
+        if ($this->exporter->charDelimiter !== null && !$size) {
+            return $value;
+        } else {
+            $padding = $this->toPadding($align);
+            return ($size > strlen($value)) ? str_pad($value, $size, $charComplete, $padding) : substr($value, 0, $size);
+        }
     }
 
     /**
@@ -115,8 +139,9 @@ abstract class Serializer extends Object
      * @param Session $session the current session
      * @param array $row
      * @param integer $index
+     * @param array $master
      * @return string
      */
-    abstract protected function run($session, $row, $index);
+    abstract protected function run($session, $row, $index, $master);
 
 }

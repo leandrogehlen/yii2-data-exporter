@@ -1,5 +1,5 @@
 {
-    "description": "Person data exports",
+    "description": "Persons data export",
     "serializer": "leandrogehlen\\exporter\\data\\serializers\\ColumnSerializer",
     "sessions": [
         {
