@@ -56,9 +56,7 @@ abstract class Serializer extends Object
                 if ($value === null) {
                     $parameter = $this->exporter->findParameter($name);
                     if ($parameter !== null) {
-                        if ($parameter->value === null && is_callable($parameter->expression)) {
-                            $value = call_user_func($parameter->expression);
-                        }
+                        $value = is_callable($parameter->value) ? call_user_func($parameter->value) : $value;
                     }
                 }
                 $params[$name] = $value;
@@ -76,17 +74,27 @@ abstract class Serializer extends Object
      */
     protected function extractValue($column, $row)
     {
-        $value = ArrayHelper::getValue($row, $column->name, $column->value);
-        $expression = $column->expression;
         $charComplete = $column->charComplete;
         $size = $column->size;
         $format = $column->format;
         $align = $column->align;
+        $expression = null;
+        $value = ArrayHelper::getValue($row, $column->name);
+
+        if (is_callable($column->value)){
+            $expression = $column->value;
+        } elseif ($column->value !== null) {
+            $value = $column->value;
+        }
 
         $dictionary = $column->dictionaryName ? $this->exporter->findDictionary($column->dictionaryName) : null;
         if ($dictionary) {
-            if ($expression === null) {
-                $expression = $dictionary->expression;
+            if ($dictionary->value) {
+                if ($expression === null && is_callable($dictionary->value)) {
+                    $expression = $dictionary->value;
+                } elseif ($value === null) {
+                    $value = $dictionary->value;
+                }
             }
             if ($charComplete === null) {
                 $charComplete = $dictionary->charComplete;
@@ -110,8 +118,8 @@ abstract class Serializer extends Object
             $value = call_user_func($expression, $value);
         }
 
-        $value = (string)$value;
-        if (($this->exporter->charDelimiter !== null && !$size) || $size === "false") {
+        $value = (string) $value;
+        if ($size === null) {
             return $value;
         } else {
             $padding = $this->toPadding($align);

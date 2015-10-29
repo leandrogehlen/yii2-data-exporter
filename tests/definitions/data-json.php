@@ -8,22 +8,24 @@ return [
             "name" => "invoices",
             "providerName" => "invoice-provider",
             "columns" => [
-                 ["name" => "type", "value" => "010", "size" => "false" ],
-                 ["name" => "number", "size" => "false" ],
-                 ["name" => "created_at", "size" => "false", "expression" => function ($value) {return date_format(date_create($value), 'Y-m-d');}],
-                 ["name" => "person", "size" => "false" ],
-                 ["name" => "description", "size" => "false"]
+                 ["name" => "type", "value" => "010"],
+                 ["name" => "number" ],
+                 ["name" => "created_at", "value" => function ($value) {
+                     return date_format(date_create($value), 'Y-m-d');
+                 }],
+                 ["name" => "person"],
+                 ["name" => "description"]
             ],
             "sessions" => [
                  [
                     "name"  => "details",
                     "providerName" => "detail-provider",
                     "columns" => [
-                         ["name" => "type", "value" => "020", "size" => "false" ],
-                         ["name" => "product_id", "size" => "false" ],
-                         ["name" => "quantity", "size" => "false" ],
-                         ["name" => "price", "size" => "false" ],
-                         ["name" => "total", "size" => "false" ]
+                         ["name" => "type", "value" => "020"],
+                         ["name" => "product_id"],
+                         ["name" => "quantity"],
+                         ["name" => "price"],
+                         ["name" => "total"]
                     ]
                  ]
             ]

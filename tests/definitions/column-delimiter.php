@@ -11,7 +11,7 @@ return [
             "columns" => [
                 ["name" => "type", "value" => "010"],
                 ["name" => "number"],
-                ["name" => "created_at", "expression" => function ($value) {
+                ["name" => "created_at", "value" => function ($value) {
                     return date_format(date_create($value), 'Y-m-d');
                 }],
                 ["name" => "person"],
@@ -45,7 +45,7 @@ return [
         [
             "name" => "created_at",
             "label" => "Created At",
-            "expression" => function() { return date('Y-m-d'); }
+            "value" => function() { return date('Y-m-d'); }
         ]
     ]
 ];
