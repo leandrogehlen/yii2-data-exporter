@@ -1,6 +1,6 @@
 <?php
 
-namespace leandrogehlen\exporter\data\serializers;
+namespace leandrogehlen\exporter\serializers;
 
 use leandrogehlen\exporter\data\Column;
 use leandrogehlen\exporter\data\Dictionary;
@@ -23,43 +23,20 @@ abstract class Serializer extends Object
     public $exporter;
 
     /**
-     * @var string data separator
-     */
-    public $separator = "\n";
-
-    /**
-     * Formats the specified session.
-     * @param Session $session
+     * Serializes the given session into a format that can be easily turned into other formats.
+     * @param Session[] $sessions
      * @param array $master
-     * @return string
+     * @return array
      */
-    public function serialize($session, $master = [])
-    {
-        if (!$session->exported) {
-            return [];
-        }
-
-        $data = [];
-        $rows = $this->executeProvider($session->providerName, $master);
-
-        $i = 0;
-        foreach ($rows as $row) {
-            $data[] = $this->run($session, $row, $i, $master);
-            $session->rows = $i++;
-        }
-
-        return $this->formatData($data);
-    }
+    abstract public function serialize($sessions, $master = []);
 
 
     /**
+     * Formats the specified data.
      * @param array $data
      * @return string
      */
-    public function formatData($data)
-    {
-        return implode("\n", $data);
-    }
+    abstract public function formatData($data);
 
     /**
      * Executes the query statement and returns ALL rows at once.
@@ -133,7 +110,7 @@ abstract class Serializer extends Object
             $value = call_user_func($expression, $value);
         }
 
-        $value = (string) $value;
+        $value = (string)$value;
         if (($this->exporter->charDelimiter !== null && !$size) || $size === "false") {
             return $value;
         } else {
@@ -158,14 +135,4 @@ abstract class Serializer extends Object
             return STR_PAD_RIGHT;
         }
     }
-
-    /**
-     * Formats the specified row
-     * @param Session $session the current session
-     * @param array $row
-     * @param integer $index
-     * @param array $master
-     * @return string
-     */
-    abstract protected function run($session, $row, $index, $master = []);
 }

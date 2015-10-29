@@ -2,7 +2,7 @@
 
 return [
     "description" => "Orders data export",
-    "serializer" => "leandrogehlen\\exporter\\data\\serializers\\ColumnSerializer",
+    "serializer" => "leandrogehlen\\exporter\\serializers\\ColumnSerializer",
     "charDelimiter" => "|",
     "sessions" => [
         [
@@ -19,7 +19,7 @@ return [
             ],
             "sessions" => [
                 [
-                    "name"  => "items",
+                    "name"  => "details",
                     "providerName" => "detail-provider",
                     "columns" => [
                         ["name" => "type", "value" => "020"],

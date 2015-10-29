@@ -2,7 +2,7 @@
 
 namespace leandrogehlen\exporter\data;
 
-use leandrogehlen\exporter\data\serializers\Serializer;
+use leandrogehlen\exporter\serializers\Serializer;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
@@ -151,10 +151,7 @@ class Exporter extends Component
      */
     public function execute()
     {
-        $data = [];
-        foreach ($this->sessions as $session) {
-            $data[] = $this->serializer->serialize($session);
-        }
-        return implode($this->serializer->separator, $data);
+        $data = $this->serializer->serialize($this->sessions);
+        return $this->serializer->formatData($data);
     }
 }

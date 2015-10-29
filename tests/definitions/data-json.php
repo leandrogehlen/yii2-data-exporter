@@ -2,10 +2,10 @@
 
 return [
     "description" => "Orders data export",
-    "serializer" => "leandrogehlen\\exporter\\data\\serializers\\JsonSerializer",
+    "serializer" => "leandrogehlen\\exporter\\serializers\\JsonSerializer",
     "sessions" => [
          [
-            "name" => "invoice",
+            "name" => "invoices",
             "providerName" => "invoice-provider",
             "columns" => [
                  ["name" => "type", "value" => "010", "size" => "false" ],

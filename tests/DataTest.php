@@ -87,9 +87,13 @@ class DataTest extends TestCase
         $content = $exporter->execute();
 
         $json = Json::decode($content);
-        $this->assertCount(2, $json);
+        $this->assertCount(1, $json);
+        $this->assertArrayHasKey('invoices', $json);
 
-        $first = $json[0];
+        $root = $json['invoices'];
+        $this->assertCount(2, $root);
+
+        $first = $root[0];
         $this->assertEquals('010', $first["type"]);
         $this->assertEquals('001', $first["number"]);
         $this->assertEquals(date('Y-m-d'), $first["created_at"]);

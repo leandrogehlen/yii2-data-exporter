@@ -2,7 +2,7 @@
 
 return [
     "description" => "Persons data export",
-    "serializer" => "leandrogehlen\\exporter\\data\\serializers\\ColumnSerializer",
+    "serializer" => "leandrogehlen\\exporter\\serializers\\ColumnSerializer",
     "sessions" => [
          [
             "name" => "person",
