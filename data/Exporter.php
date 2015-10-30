@@ -103,7 +103,7 @@ class Exporter extends Component
     /**
      * Finds Provider instance by the given name.
      * @param string $name the provider name
-     * @return Provider|null
+     * @return Provider
      * @throws InvalidConfigException if provider not found
      */
     public function findProvider($name)
@@ -119,7 +119,7 @@ class Exporter extends Component
     /**
      * Finds Dictionary instance by the given name.
      * @param string $name the dictionary name
-     * @return Dictionary|null
+     * @return Dictionary
      * @throws InvalidConfigException if dictionary not found
      */
     public function findDictionary($name)
