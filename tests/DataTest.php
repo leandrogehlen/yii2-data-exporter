@@ -121,13 +121,14 @@ class DataTest extends TestCase
         $this->assertEquals('100.00', $second["total"]);
     }
 
-    public function testInvalidConfiguration()
+    public function testInvalidConfigurations()
     {
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/provider(.*)not found/');
         $exporter = $this->createExporter('invalid-config');
         $exporter->execute();
 
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/dictionary(.*)not found/');
+        $exporter->sessions[0]->providerName = 'person-provider';
         $exporter->execute();
     }
 
