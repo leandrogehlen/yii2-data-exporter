@@ -104,6 +104,7 @@ class Exporter extends Component
      * Finds Provider instance by the given name.
      * @param string $name the provider name
      * @return Provider|null
+     * @throws InvalidConfigException if provider not found
      */
     public function findProvider($name)
     {
@@ -112,13 +113,14 @@ class Exporter extends Component
                 return $provider;
             }
         }
-        return null;
+        throw new InvalidConfigException('The provider with name "' . $name .  '" not found');
     }
 
     /**
      * Finds Dictionary instance by the given name.
      * @param string $name the dictionary name
      * @return Dictionary|null
+     * @throws InvalidConfigException if dictionary not found
      */
     public function findDictionary($name)
     {
@@ -127,7 +129,7 @@ class Exporter extends Component
                 return $dictionary;
             }
         }
-        return null;
+        throw new InvalidConfigException('The dictionary with name "' . $name .  '" not found');
     }
 
     /**

@@ -121,6 +121,16 @@ class DataTest extends TestCase
         $this->assertEquals('100.00', $second["total"]);
     }
 
+    public function testInvalidConfiguration()
+    {
+        $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/provider(.*)not found/');
+        $exporter = $this->createExporter('invalid-config');
+        $exporter->execute();
+
+        $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/dictionary(.*)not found/');
+        $exporter->execute();
+    }
+
     protected function createExporter($name)
     {
         $config = include __DIR__ . "/definitions/$name.php";
