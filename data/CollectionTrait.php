@@ -6,11 +6,11 @@ namespace leandrogehlen\exporter\data;
 use Yii;
 
 /**
- * OwnedCollectionTrait implements the common methods for classes that contains collection properties
+ * CollectionTrait implements the common methods for classes that contains collection properties
  *
  * @author Leandro Guindani Gehlen <leandrogehlen@gmail.com>
  */
-trait OwnedCollectionTrait
+trait CollectionTrait
 {
     /**
      * @param array $collection collection configuration. Each array element represents
@@ -19,7 +19,7 @@ trait OwnedCollectionTrait
      * @param array $config name-value pairs that will be used to initialize the object properties
      * @throws \yii\base\InvalidConfigException
      */
-    protected function initCollection(&$collection, $class, $config = [])
+    protected function initElements(&$collection, $class, $config = [])
     {
         foreach ($collection as $i => $element) {
             $element = array_merge($config, $element);

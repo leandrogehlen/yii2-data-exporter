@@ -17,7 +17,7 @@ use yii\i18n\Formatter;
  */
 class Exporter extends Component
 {
-    use OwnedCollectionTrait;
+    use CollectionTrait;
 
     /**
      * @var string|Serializer
@@ -93,11 +93,11 @@ class Exporter extends Component
             throw new InvalidConfigException('The "formatter" property must be either a Format object or a configuration array.');
         }
 
-        $this->initCollection($this->sessions, Session::className());
-        $this->initCollection($this->dictionaries, Dictionary::className());
-        $this->initCollection($this->events, Event::className());
-        $this->initCollection($this->providers, Provider::className());
-        $this->initCollection($this->parameters, Parameter::className());
+        $this->initElements($this->sessions, Session::className());
+        $this->initElements($this->dictionaries, Dictionary::className());
+        $this->initElements($this->events, Event::className());
+        $this->initElements($this->providers, Provider::className());
+        $this->initElements($this->parameters, Parameter::className());
     }
 
     /**

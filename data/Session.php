@@ -9,7 +9,7 @@ namespace leandrogehlen\exporter\data;
  */
 class Session extends Element
 {
-    use OwnedCollectionTrait;
+    use CollectionTrait;
 
     /**
      * @var Session the owner session.
@@ -68,7 +68,7 @@ class Session extends Element
     public function init()
     {
         parent::init();
-        $this->initCollection($this->columns, Column::className());
-        $this->initCollection($this->sessions, Session::className(), ['owner' => $this]);
+        $this->initElements($this->columns, Column::className());
+        $this->initElements($this->sessions, Session::className(), ['owner' => $this]);
     }
 }
