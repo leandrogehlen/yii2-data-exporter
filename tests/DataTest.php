@@ -3,6 +3,8 @@
 namespace leandrogehlen\exporter\tests;
 
 use leandrogehlen\exporter\data\Exporter;
+use leandrogehlen\exporter\serializers\JsonSerializer;
+use leandrogehlen\exporter\serializers\XmlSerializer;
 use leandrogehlen\exporter\tests\fixtures\InvoiceFixture;
 use leandrogehlen\exporter\tests\fixtures\InvoiceDetailsFixture;
 use leandrogehlen\exporter\tests\fixtures\PersonFixture;
@@ -83,7 +85,7 @@ class DataTest extends TestCase
 
     public function testJson()
     {
-        $exporter = $this->createExporter('data-json');
+        $exporter = $this->createExporter('hierarchical-data', JsonSerializer::className());
         $content = $exporter->execute();
 
         $json = Json::decode($content);
@@ -121,6 +123,42 @@ class DataTest extends TestCase
         $this->assertEquals('100.00', $second["total"]);
     }
 
+    public function testXml()
+    {
+        $exporter = $this->createExporter('hierarchical-data', XmlSerializer::className());
+        $content = $exporter->execute();
+
+        $xml = simplexml_load_string($content);
+        $this->assertNotNull($xml->invoices);
+
+        $first = $xml->invoices->item[0];
+        $this->assertEquals('100', (string) $first->type);
+        $this->assertEquals('001', (string) $first->number);
+        $this->assertEquals(date('Y-m-d'), (string) $first->created_at);
+        $this->assertEquals('The first order', (string) $first->description);
+
+        $person = $first->person;
+        $this->assertEquals('Administrator', (string) $person->firstName);
+        $this->assertEquals('Root', (string) $person->lastName);
+
+        $details = $first->details;
+        $this->assertNotNull($details);
+
+        $first = $details->item[0];
+        $this->assertEquals('020', (string) $first->type);
+        $this->assertEquals('1', (string) $first->product_id);
+        $this->assertEquals('2', (string) $first->quantity);
+        $this->assertEquals('10.00', (string) $first->price);
+        $this->assertEquals('20.00', (string) $first->total);
+
+        $second = $details->item[1];
+        $this->assertEquals('020', (string) $second->type);
+        $this->assertEquals('2', (string) $second->product_id);
+        $this->assertEquals('5', (string) $second->quantity);
+        $this->assertEquals('20.00', (string) $second->price);
+        $this->assertEquals('100.00', (string) $second->total);
+    }
+
     public function testInvalidConfigurations()
     {
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/provider(.*)not found/');
@@ -132,9 +170,15 @@ class DataTest extends TestCase
         $exporter->execute();
     }
 
-    protected function createExporter($name)
+    /**
+     * @param $name
+     * @param $serializer
+     * @return Exporter
+     */
+    protected function createExporter($name, $serializer = null)
     {
         $config = include __DIR__ . "/definitions/$name.php";
+        $config = array_merge(['serializer' => $serializer], $config);
         return new Exporter($config);
     }
 }

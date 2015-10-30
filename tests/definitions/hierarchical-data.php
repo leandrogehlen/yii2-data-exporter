@@ -2,7 +2,6 @@
 
 return [
     "description" => "Orders data export",
-    "serializer" => "leandrogehlen\\exporter\\serializers\\JsonSerializer",
     "sessions" => [
          [
             "name" => "invoices",
