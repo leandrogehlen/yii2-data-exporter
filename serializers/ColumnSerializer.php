@@ -18,7 +18,8 @@ class ColumnSerializer extends Serializer
         foreach ($sessions as $session) {
             if ($session->exported) {
                 $i = 0;
-                $rows = $this->executeProvider($session->providerName, $master);
+                $provider = $this->exporter->findProvider($session->providerName);
+                $rows = $this->executeProvider($provider, $master);
 
                 foreach ($rows as $row) {
 

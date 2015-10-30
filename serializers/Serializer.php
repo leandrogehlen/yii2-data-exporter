@@ -5,6 +5,7 @@ namespace leandrogehlen\exporter\serializers;
 use leandrogehlen\exporter\data\Column;
 use leandrogehlen\exporter\data\Dictionary;
 use leandrogehlen\exporter\data\Exporter;
+use leandrogehlen\exporter\data\Provider;
 use leandrogehlen\exporter\data\Session;
 use yii\base\Object;
 use yii\helpers\ArrayHelper;
@@ -40,14 +41,12 @@ abstract class Serializer extends Object
 
     /**
      * Executes the query statement and returns ALL rows at once.
-     * @param string $providerName the provider name
+     * @param Provider $provider the provider name
      * @return array
      */
-    protected function executeProvider($providerName, $master)
+    protected function executeProvider($provider, $master)
     {
         $params = [];
-        $provider = $this->exporter->findProvider($providerName);
-
         if (preg_match_all('/:\w+/', $provider->query, $matches)) {
             foreach ($matches as $param) {
                 $name = substr($param[0], 1);

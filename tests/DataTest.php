@@ -94,11 +94,14 @@ class DataTest extends TestCase
         $this->assertCount(2, $root);
 
         $first = $root[0];
-        $this->assertEquals('010', $first["type"]);
+        $this->assertEquals('100', $first["type"]);
         $this->assertEquals('001', $first["number"]);
         $this->assertEquals(date('Y-m-d'), $first["created_at"]);
-        $this->assertEquals('Administrator', $first["person"]);
         $this->assertEquals('The first order', $first["description"]);
+
+        $person = $first['person'];
+        $this->assertEquals('Administrator', $person["firstName"]);
+        $this->assertEquals('Root', $person["lastName"]);
 
         $details = $first["details"];
         $this->assertCount(2, $details);
