@@ -9,7 +9,9 @@ use leandrogehlen\exporter\tests\fixtures\InvoiceFixture;
 use leandrogehlen\exporter\tests\fixtures\InvoiceDetailsFixture;
 use leandrogehlen\exporter\tests\fixtures\PersonFixture;
 use leandrogehlen\exporter\tests\fixtures\ProductFixture;
+use yii\base\Object;
 use yii\helpers\Json;
+use Yii;
 
 /**
  * @method array persons(string $key)
@@ -85,7 +87,7 @@ class DataTest extends TestCase
 
     public function testJson()
     {
-        $exporter = $this->createExporter('hierarchical-data', JsonSerializer::className());
+        $exporter = $this->createExporter('hierarchical-data', ['serializer' => JsonSerializer::className()]);
         $content = $exporter->execute();
 
         $json = Json::decode($content);
@@ -125,7 +127,7 @@ class DataTest extends TestCase
 
     public function testXml()
     {
-        $exporter = $this->createExporter('hierarchical-data', XmlSerializer::className());
+        $exporter = $this->createExporter('hierarchical-data', ['serializer' => XmlSerializer::className()]);
         $content = $exporter->execute();
 
         $xml = simplexml_load_string($content);
@@ -159,26 +161,43 @@ class DataTest extends TestCase
         $this->assertEquals('100.00', (string) $second->total);
     }
 
-    public function testInvalidConfigurations()
+    public function testInvalidProviderConfig()
     {
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/provider(.*)not found/');
         $exporter = $this->createExporter('invalid-config');
         $exporter->execute();
 
+    }
+
+    public function testInvalidDictionaryConfig()
+    {
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/dictionary(.*)not found/');
+        $exporter = $this->createExporter('invalid-config');
         $exporter->sessions[0]->providerName = 'person-provider';
         $exporter->execute();
     }
 
+    public function testInvalidFormatterConfig()
+    {
+        $this->setExpectedException('yii\base\InvalidConfigException');
+        $this->createExporter('invalid-config', ['formatter' => new Object()]);
+    }
+
+    public function testInvalidsSerializerConfig()
+    {
+        $this->setExpectedException('yii\base\InvalidConfigException');
+        $this->createExporter('invalid-config', ['serializer' => new Object()]);
+    }
+
     /**
-     * @param $name
-     * @param $serializer
+     * @param string $name
+     * @param array $extra
      * @return Exporter
      */
-    protected function createExporter($name, $serializer = null)
+    protected function createExporter($name, $extra = [])
     {
         $config = include __DIR__ . "/definitions/$name.php";
-        $config = array_merge(['serializer' => $serializer], $config);
+        $config = array_merge($config, $extra);
         return new Exporter($config);
     }
 }

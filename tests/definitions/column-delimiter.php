@@ -2,8 +2,10 @@
 
 return [
     "description" => "Orders data export",
-    "serializer" => "leandrogehlen\\exporter\\serializers\\ColumnSerializer",
-    "charDelimiter" => "|",
+    "serializer" => [
+        "class" => "leandrogehlen\\exporter\\serializers\\ColumnSerializer",
+        "charDelimiter" => "|",
+    ],
     "sessions" => [
         [
             "name" => "order",

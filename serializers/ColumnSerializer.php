@@ -9,6 +9,12 @@ namespace leandrogehlen\exporter\serializers;
  */
 class ColumnSerializer extends Serializer
 {
+
+    /**
+     * @var string
+     */
+    public $charDelimiter;
+
     /**
      * @inheritdoc
      */
@@ -29,7 +35,7 @@ class ColumnSerializer extends Serializer
                         $record[] = $value;
                     }
 
-                    $data[] = implode($this->exporter->charDelimiter, $record);
+                    $data[] = implode($this->charDelimiter, $record);
                     $children = $this->serialize($session->sessions, $row);
 
                     foreach ($children as $item) {

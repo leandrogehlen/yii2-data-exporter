@@ -20,14 +20,9 @@ class Exporter extends Component
     use CollectionTrait;
 
     /**
-     * @var string|Serializer
+     * @var string|array|Serializer
      */
     public $serializer;
-
-    /**
-     * @var string
-     */
-    public $charDelimiter;
 
     /**
      * @var string
@@ -79,19 +74,10 @@ class Exporter extends Component
     {
         parent::init();
         $this->db = Instance::ensure($this->db, Connection::className());
-        $this->serializer = Yii::createObject([
-            'class' => $this->serializer,
-            'exporter' => $this
-        ]);
 
-        if ($this->formatter === null) {
-            $this->formatter = Yii::$app->getFormatter();
-        } elseif (is_array($this->formatter)) {
-            $this->formatter = Yii::createObject($this->formatter);
-        }
-        if (!$this->formatter instanceof Formatter) {
-            throw new InvalidConfigException('The "formatter" property must be either a Format object or a configuration array.');
-        }
+        $this->initSerializer();
+        $this->initFormatter();
+
 
         $this->initElements($this->sessions, Session::className());
         $this->initElements($this->dictionaries, Dictionary::className());
@@ -99,6 +85,7 @@ class Exporter extends Component
         $this->initElements($this->providers, Provider::className());
         $this->initElements($this->parameters, Parameter::className());
     }
+
 
     /**
      * Finds Provider instance by the given name.
@@ -155,5 +142,42 @@ class Exporter extends Component
     {
         $data = $this->serializer->serialize($this->sessions);
         return $this->serializer->formatData($data);
+    }
+
+    /**
+     * Initializes the Serializer property
+     * @throws InvalidConfigException
+     */
+    protected function initSerializer()
+    {
+        if (is_string($this->serializer)) {
+            $this->serializer = Yii::createObject([
+                'class' => $this->serializer,
+                'exporter' => $this
+            ]);
+        } elseif (is_array($this->serializer)) {
+            $this->serializer['exporter'] = $this;
+            $this->serializer = Yii::createObject($this->serializer);
+        }
+
+        if (!$this->serializer instanceof Serializer) {
+            throw new InvalidConfigException('The "serializer" property must be either a Serializer object.');
+        }
+    }
+
+    /**
+     * Initializes the Formatter property
+     * @throws InvalidConfigException
+     */
+    protected function initFormatter()
+    {
+        if ($this->formatter === null) {
+            $this->formatter = Yii::$app->getFormatter();
+        } elseif (is_array($this->formatter)) {
+            $this->formatter = Yii::createObject($this->formatter);
+        }
+        if (!$this->formatter instanceof Formatter) {
+            throw new InvalidConfigException('The "formatter" property must be either a Format object or a configuration array.');
+        }
     }
 }
