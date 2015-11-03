@@ -22,7 +22,7 @@ class ColumnSerializer extends Serializer
     {
         $data = [];
         foreach ($sessions as $session) {
-            if ($session->exported) {
+            if ($session->visible) {
                 $i = 0;
                 $provider = $this->exporter->findProvider($session->providerName);
                 $rows = $this->executeProvider($provider, $master);

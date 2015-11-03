@@ -91,8 +91,9 @@ class DataTest extends TestCase
         $content = $exporter->execute();
 
         $json = Json::decode($content);
-        $this->assertCount(1, $json);
+        $this->assertCount(2, $json);
         $this->assertArrayHasKey('invoices', $json);
+        $this->assertArrayHasKey('persons', $json);
 
         $root = $json['invoices'];
         $this->assertCount(2, $root);
@@ -131,7 +132,9 @@ class DataTest extends TestCase
         $content = $exporter->execute();
 
         $xml = simplexml_load_string($content);
+        $this->assertEquals('items', $xml->getName());
         $this->assertNotNull($xml->invoices);
+        $this->assertNotNull($xml->persons);
 
         $first = $xml->invoices->item[0];
         $this->assertEquals('100', (string) $first->type);
@@ -159,6 +162,13 @@ class DataTest extends TestCase
         $this->assertEquals('5', (string) $second->quantity);
         $this->assertEquals('20.00', (string) $second->price);
         $this->assertEquals('100.00', (string) $second->total);
+
+        // root xml element
+        unset($exporter->sessions[1]);
+        $content = $exporter->execute();
+
+        $xml = simplexml_load_string($content);
+        $this->assertEquals('invoices', $xml->getName());
     }
 
     public function testInvalidProviderConfig()
@@ -166,7 +176,6 @@ class DataTest extends TestCase
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/provider(.*)not found/');
         $exporter = $this->createExporter('invalid-config');
         $exporter->execute();
-
     }
 
     public function testInvalidDictionaryConfig()

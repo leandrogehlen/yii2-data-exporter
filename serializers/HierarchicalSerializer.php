@@ -17,7 +17,7 @@ abstract class HierarchicalSerializer extends Serializer
     {
         $result = [];
         foreach ($sessions as $session) {
-            if ($session->exported) {
+            if ($session->visible) {
                 $data = [];
 
                 $provider = $this->exporter->findProvider($session->providerName);

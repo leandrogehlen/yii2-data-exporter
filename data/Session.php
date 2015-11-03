@@ -22,19 +22,9 @@ class Session extends Element
     public $providerName;
 
     /**
-     * @var boolean whether this session generate new content. Defaults to false.
-     */
-    public $new = false;
-
-    /**
-     * @var boolean whether this session name is visible. Defaults to true.
-     */
-    public $visible = true;
-
-    /**
      * @var boolean whether this session will be executed. Defaults to true.
      */
-    public $exported = true;
+    public $visible = true;
 
     /**
      * @var integer the rows count.

@@ -3,7 +3,7 @@
 return [
     "description" => "Orders data export",
     "sessions" => [
-         [
+        [
             "name" => "invoices",
             "providerName" => "invoice-provider",
             "columns" => [
@@ -35,16 +35,26 @@ return [
                     ]
                 ]
             ]
-         ]
+        ],[
+            "name" => "persons",
+            "providerName" => "person-provider",
+            "columns" => [
+                ["name" => "firstName"],
+                ["name" => "lastName"]
+            ],
+        ]
     ],
     "providers" => [
          [
             "name" => "invoice-provider",
             "query" => "select invoice.*, person.firstName, person.lastName from invoice join person on (person.id = invoice.person_id)"
-         ], [
+         ],[
             "name" => "detail-provider",
             "query" => "select * from invoice_details where invoice_id = :id"
-         ]
+         ],[
+            "name" => "person-provider",
+            "query" => "select * from person"
+        ]
     ],
     "dictionaries" => [
         ["name" => "type", "value" => "100"]

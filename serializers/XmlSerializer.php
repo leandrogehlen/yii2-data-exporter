@@ -36,10 +36,16 @@ class XmlSerializer extends HierarchicalSerializer
     public function formatData($data)
     {
         $dom = new DOMDocument($this->version, $this->encoding);
-        $root = new DOMElement($this->rootTag);
-        $dom->appendChild($root);
+
+        if (count($this->exporter->sessions) === 1) {
+            $root = $dom;
+        } else {
+            $root = new DOMElement($this->rootTag);
+            $dom->appendChild($root);
+        }
+
         $this->buildXml($root, $data);
-        return  $dom->saveXML();
+        return $dom->saveXML();
     }
 
     /**
