@@ -16,7 +16,7 @@
         "issues": "https://github.com/leandrogehlen/yii2-data-exporter/issues?state=open",
         "source": "https://github.com/leandrogehlen/yii2-data-exporter"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "2.0.6"
     },
