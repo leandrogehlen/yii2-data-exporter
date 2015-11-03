@@ -13,7 +13,7 @@ class ColumnSerializer extends Serializer
     /**
      * @var string
      */
-    public $charDelimiter;
+    public $delimiter;
 
     /**
      * @inheritdoc
@@ -35,7 +35,7 @@ class ColumnSerializer extends Serializer
                         $record[] = $value;
                     }
 
-                    $data[] = implode($this->charDelimiter, $record);
+                    $data[] = implode($this->delimiter, $record);
                     $children = $this->serialize($session->sessions, $row);
 
                     foreach ($children as $item) {

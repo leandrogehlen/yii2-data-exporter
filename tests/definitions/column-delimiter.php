@@ -4,7 +4,7 @@ return [
     "description" => "Orders data export",
     "serializer" => [
         "class" => "leandrogehlen\\exporter\\serializers\\ColumnSerializer",
-        "charDelimiter" => "|",
+        "delimiter" => "|",
     ],
     "sessions" => [
         [
