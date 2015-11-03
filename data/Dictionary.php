@@ -19,9 +19,9 @@ class Dictionary extends Variable
     public $align;
 
     /**
-     * @var string the character to complete until [[size]]
+     * @var string the string to complete until [[size]]
      */
-    public $charComplete;
+    public $complete;
 
     /**
      * @var string the display format

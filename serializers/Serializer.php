@@ -73,7 +73,7 @@ abstract class Serializer extends Object
      */
     protected function extractValue($column, $row)
     {
-        $charComplete = $column->charComplete;
+        $charComplete = $column->complete;
         $size = $column->size;
         $format = $column->format;
         $align = $column->align;
@@ -96,7 +96,7 @@ abstract class Serializer extends Object
                 }
             }
             if ($charComplete === null) {
-                $charComplete = $dictionary->charComplete;
+                $charComplete = $dictionary->complete;
             }
             if ($align === null) {
                 $align = $dictionary->align;
