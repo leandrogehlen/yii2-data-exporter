@@ -49,7 +49,7 @@ class XmlSerializer extends HierarchicalSerializer
     }
 
     /**
-     * @param DOMElement $element
+     * @param \DOMNode $element
      * @param mixed $data
      */
     protected function buildXml($element, $data)
