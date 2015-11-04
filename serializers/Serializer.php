@@ -11,6 +11,7 @@ use yii\base\Object;
 use yii\helpers\ArrayHelper;
 
 
+
 /**
  * Serializer converts DB data into specific before it is sent out
  *
@@ -18,6 +19,12 @@ use yii\helpers\ArrayHelper;
  */
 abstract class Serializer extends Object
 {
+
+    /**
+     * @event Event an event raised at the beginning of serialize row
+     */
+    const EVENT_BEFORE_SERIALIZE_ROW = 'beforeSerializeRow';
+
     /**
      * @var Exporter
      */
@@ -63,6 +70,18 @@ abstract class Serializer extends Object
         }
 
         return $this->exporter->db->createCommand($provider->query, $params)->queryAll();
+    }
+
+    /**
+     * This method is invoked before serialize row.
+     * @param string|array $record
+     * @param Session $session
+     * @return string|array
+     */
+    public function beforeSerializeRow($record, $session)
+    {
+        $event = $this->exporter->findEvent(self::EVENT_BEFORE_SERIALIZE_ROW);
+        return ($event !== null) ? call_user_func($event->expression, $record, $session) : $record;
     }
 
     /**

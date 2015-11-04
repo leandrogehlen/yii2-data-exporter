@@ -38,6 +38,7 @@ abstract class HierarchicalSerializer extends Serializer
                         $record[$column->name] = $value;
                     }
 
+                    $record = $this->beforeSerializeRow($record, $session);
                     $children = $this->serialize($session->sessions, $row);
                     if (!empty($children)) {
                         $record = array_merge($record, $children);

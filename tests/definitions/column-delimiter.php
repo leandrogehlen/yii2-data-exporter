@@ -51,5 +51,13 @@ return [
             "label" => "Created At",
             "value" => function() { return date('Y-m-d'); }
         ]
+    ],
+    "events" => [
+        [
+            "name" => "beforeSerializeRow",
+            "expression" => function ($data, $session) {
+                return '|' . $data . '|';
+            }
+        ]
     ]
 ];

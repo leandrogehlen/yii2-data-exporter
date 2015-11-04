@@ -63,7 +63,9 @@ class DataTest extends TestCase
         $this->assertCount(5, $lines);
 
         $first = explode("|", $lines[0]);
-        $this->assertCount(5, $first);
+        $first = array_slice($first, 1, 5);
+        $this->assertCount(5, $first); // the event added additional `|`
+
         $this->assertEquals("010", $first[0]);
         $this->assertEquals("001", $first[1]);
         $this->assertEquals(date('Y-m-d'), $first[2]);
@@ -71,6 +73,8 @@ class DataTest extends TestCase
         $this->assertEquals("The first order - 1530.00", $first[4]);
 
         $second = explode("|", $lines[1]);
+        $second = array_slice($second, 1, 5);  // the event added additional `|`
+
         $this->assertCount(5, $second);
         $this->assertEquals("020", $second[0]);
         $this->assertEquals(1, $second[1]);
@@ -103,6 +107,7 @@ class DataTest extends TestCase
         $this->assertEquals('001', $first["number"]);
         $this->assertEquals(date('Y-m-d'), $first["created_at"]);
         $this->assertEquals('The first order', $first["description"]);
+        $this->assertEquals('event', $first["eventColumn"]); // added from event
 
         $person = $first['person'];
         $this->assertEquals('Administrator', $person["firstName"]);
@@ -163,7 +168,7 @@ class DataTest extends TestCase
         $this->assertEquals('20.00', (string) $second->price);
         $this->assertEquals('100.00', (string) $second->total);
 
-        // root xml element
+        // root xml element test
         unset($exporter->sessions[1]);
         $content = $exporter->execute();
 
@@ -196,6 +201,18 @@ class DataTest extends TestCase
     {
         $this->setExpectedException('yii\base\InvalidConfigException');
         $this->createExporter('invalid-config', ['serializer' => new Object()]);
+    }
+
+    public function testInvalidsEventConfig()
+    {
+        $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/The expression of event "(.*)" must be callable/');
+        $exporter = $this->createExporter('invalid-config');
+
+        $session = $exporter->sessions[0];
+        $session->providerName = 'person-provider';
+        unset($session->columns[2]);
+
+        $exporter->execute();
     }
 
     /**

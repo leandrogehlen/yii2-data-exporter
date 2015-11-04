@@ -58,5 +58,16 @@ return [
     ],
     "dictionaries" => [
         ["name" => "type", "value" => "100"]
+    ],
+    "events" => [
+        [
+            "name" => "beforeSerializeRow",
+            "expression" => function ($data, $session) {
+                if ($session->name == 'invoices') {
+                    $data['eventColumn'] = "event";
+                }
+                return $data;
+            }
+        ]
     ]
 ];

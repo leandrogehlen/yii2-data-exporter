@@ -35,7 +35,8 @@ class ColumnSerializer extends Serializer
                         $record[] = $value;
                     }
 
-                    $data[] = implode($this->delimiter, $record);
+                    $record = implode($this->delimiter, $record);
+                    $data[] = $this->beforeSerializeRow($record, $session);
                     $children = $this->serialize($session->sessions, $row);
 
                     foreach ($children as $item) {

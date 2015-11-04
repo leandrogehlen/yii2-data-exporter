@@ -22,5 +22,11 @@ return [
     ],
     "dictionaries" => [
         ["name" => "money", "size" => 8, "complete" => "0", "align" => "right"]
+    ],
+    "events" => [
+        [
+            "name" => "beforeSerializeRow",
+            "expression" => 10
+        ]
     ]
 ];

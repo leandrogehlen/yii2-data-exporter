@@ -78,7 +78,6 @@ class Exporter extends Component
         $this->initSerializer();
         $this->initFormatter();
 
-
         $this->initElements($this->sessions, Session::className());
         $this->initElements($this->dictionaries, Dictionary::className());
         $this->initElements($this->events, Event::className());
@@ -129,6 +128,26 @@ class Exporter extends Component
         foreach ($this->parameters as $param) {
             if ($param->name == $name) {
                 return $param;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds Event instance by the given name.
+     * @param string $name the dictionary name*
+     * @return Event|null
+     * @throws InvalidConfigException if is invalid expression event
+     */
+    public function findEvent($name)
+    {
+        foreach ($this->events as $event) {
+            if ($event->name == $name) {
+                if (is_callable($event->expression)) {
+                    return $event;
+                } else {
+                    throw new InvalidConfigException('The expression of event "' . $name .  '" must be callable');
+                }
             }
         }
         return null;
