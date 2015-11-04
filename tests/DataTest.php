@@ -68,7 +68,7 @@ class DataTest extends TestCase
         $this->assertEquals("001", $first[1]);
         $this->assertEquals(date('Y-m-d'), $first[2]);
         $this->assertEquals("Administrator", $first[3]);
-        $this->assertEquals("The first order", $first[4]);
+        $this->assertEquals("The first order - 1530.00", $first[4]);
 
         $second = explode("|", $lines[1]);
         $this->assertCount(5, $second);

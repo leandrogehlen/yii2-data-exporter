@@ -13,11 +13,13 @@ return [
             "columns" => [
                 ["name" => "type", "value" => "010"],
                 ["name" => "number"],
-                ["name" => "created_at", "value" => function ($value) {
+                ["name" => "created_at", "value" => function ($value, $row) {
                     return date_format(date_create($value), 'Y-m-d');
                 }],
-                ["name" => "person"],
-                ["name" => "description"]
+                ["name" => "firstName"],
+                ["name" => "description", "value" => function ($value, $row) {
+                    return $value . ' - ' . $row['salary'];
+                }],
             ],
             "sessions" => [
                 [
@@ -37,7 +39,7 @@ return [
     "providers" => [
         [
             "name" => "order-provider",
-            "query" => "select invoice.*, person.firstName as person from invoice join person on (person.id = invoice.person_id) where invoice.created_at = :created_at"
+            "query" => "select invoice.*, person.firstName, person.salary from invoice join person on (person.id = invoice.person_id) where invoice.created_at = :created_at"
         ],[
             "name" => "detail-provider",
             "query" => "select * from invoice_details where invoice_id = :id"

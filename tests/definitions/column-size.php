@@ -11,7 +11,7 @@ return [
                  ["name" => "type", "size" => 3, "value" => "010" ],
                  ["name" => "firstName", "size" => 10, "complete" => " " ],
                  ["name" => "lastName", "size" => 5, "complete" => " " ],
-                 ["name" => "birthDate", "size" => 10, "value" => function($value) {
+                 ["name" => "birthDate", "size" => 10, "value" => function($value, $row) {
                      return date_format(date_create($value), 'd/m/Y');
                  }],
                  ["name" => "salary", "dictionaryName" => "money" ],

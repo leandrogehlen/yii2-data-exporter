@@ -73,7 +73,7 @@ abstract class Serializer extends Object
      */
     protected function extractValue($column, $row)
     {
-        $charComplete = $column->complete;
+        $complete = $column->complete;
         $size = $column->size;
         $format = $column->format;
         $align = $column->align;
@@ -95,8 +95,8 @@ abstract class Serializer extends Object
                     $value = $dictionary->value;
                 }
             }
-            if ($charComplete === null) {
-                $charComplete = $dictionary->complete;
+            if ($complete === null) {
+                $complete = $dictionary->complete;
             }
             if ($align === null) {
                 $align = $dictionary->align;
@@ -114,7 +114,7 @@ abstract class Serializer extends Object
         }
 
         if (is_callable($expression)) {
-            $value = call_user_func($expression, $value);
+            $value = call_user_func($expression, $value, $row);
         }
 
         $value = (string) $value;
@@ -122,7 +122,7 @@ abstract class Serializer extends Object
             return $value;
         } else {
             $padding = $this->toPadding($align);
-            return ($size > strlen($value)) ? str_pad($value, $size, $charComplete, $padding) : substr($value, 0, $size);
+            return ($size > strlen($value)) ? str_pad($value, $size, $complete, $padding) : substr($value, 0, $size);
         }
     }
 

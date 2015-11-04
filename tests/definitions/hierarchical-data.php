@@ -9,7 +9,7 @@ return [
             "columns" => [
                  ["name" => "type", "dictionaryName" => "type"],
                  ["name" => "number" ],
-                 ["name" => "created_at", "value" => function ($value) {
+                 ["name" => "created_at", "value" => function ($value, $row) {
                      return date_format(date_create($value), 'Y-m-d');
                  }],
                  ["name" => "person"],
