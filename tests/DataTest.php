@@ -197,13 +197,13 @@ class DataTest extends TestCase
         $this->createExporter('invalid-config', ['formatter' => new Object()]);
     }
 
-    public function testInvalidsSerializerConfig()
+    public function testInvalidSerializerConfig()
     {
         $this->setExpectedException('yii\base\InvalidConfigException');
         $this->createExporter('invalid-config', ['serializer' => new Object()]);
     }
 
-    public function testInvalidsEventConfig()
+    public function testInvalidEventConfig()
     {
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/The expression of event "(.*)" must be callable/');
         $exporter = $this->createExporter('invalid-config');
