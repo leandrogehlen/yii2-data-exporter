@@ -10,7 +10,7 @@ namespace leandrogehlen\exporter\data;
 class Event extends Element
 {
     /**
-     * @var callable the variable value
+     * @var callable the expression value
      */
     public $expression;
 }

@@ -6,11 +6,11 @@ return [
     "sessions" => [
         [
             "name" => "person",
-            "providerName" => "invalid-provider",
+            "provider" => "invalid-provider",
             "columns" => [
                 ["name" => "type", "size" => 3, "value" => "010"],
                 ["name" => "firstName", "size" => 10, "complete" => " "],
-                ["name" => "salary", "dictionaryName" => "invalid-dictionary"],
+                ["name" => "salary", "dictionary" => "invalid-dictionary"],
             ]
         ]
     ],

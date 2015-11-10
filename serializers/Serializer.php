@@ -105,7 +105,7 @@ abstract class Serializer extends Object
             $value = $column->value;
         }
 
-        $dictionary = $column->dictionaryName ? $this->exporter->findDictionary($column->dictionaryName) : null;
+        $dictionary = $column->dictionary ? $this->exporter->findDictionary($column->dictionary) : null;
         if ($dictionary) {
             if ($dictionary->value) {
                 if ($expression === null && is_callable($dictionary->value)) {

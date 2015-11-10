@@ -187,7 +187,7 @@ class DataTest extends TestCase
     {
         $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/dictionary(.*)not found/');
         $exporter = $this->createExporter('invalid-config');
-        $exporter->sessions[0]->providerName = 'person-provider';
+        $exporter->sessions[0]->provider = 'person-provider';
         $exporter->execute();
     }
 
@@ -209,7 +209,7 @@ class DataTest extends TestCase
         $exporter = $this->createExporter('invalid-config');
 
         $session = $exporter->sessions[0];
-        $session->providerName = 'person-provider';
+        $session->provider = 'person-provider';
         unset($session->columns[2]);
 
         $exporter->execute();

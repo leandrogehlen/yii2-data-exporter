@@ -20,11 +20,11 @@ abstract class HierarchicalSerializer extends Serializer
             if ($session->visible) {
                 $data = [];
 
-                $provider = $this->exporter->findProvider($session->providerName);
+                $provider = $this->exporter->findProvider($session->provider);
                 $rows = $this->executeProvider($provider, $master);
 
                 $owner = $session->owner;
-                $sameProvider = ($owner !== null) ? ($session->providerName == $owner->providerName) : false;
+                $sameProvider = ($owner !== null) ? ($session->provider == $owner->provider) : false;
 
                 foreach ($rows as $row) {
                     $record = [];

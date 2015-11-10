@@ -5,9 +5,9 @@ return [
     "sessions" => [
         [
             "name" => "invoices",
-            "providerName" => "invoice-provider",
+            "provider" => "invoice-provider",
             "columns" => [
-                 ["name" => "type", "dictionaryName" => "type"],
+                 ["name" => "type", "dictionary" => "type"],
                  ["name" => "number" ],
                  ["name" => "created_at", "value" => function ($value, $row) {
                      return date_format(date_create($value), 'Y-m-d');
@@ -18,7 +18,7 @@ return [
             "sessions" => [
                  [
                     "name"  => "details",
-                    "providerName" => "detail-provider",
+                    "provider" => "detail-provider",
                     "columns" => [
                          ["name" => "type", "value" => "020"],
                          ["name" => "product_id"],
@@ -28,7 +28,7 @@ return [
                     ]
                  ],[
                     "name" => "person",
-                    "providerName" => "invoice-provider",
+                    "provider" => "invoice-provider",
                     "columns" => [
                         ["name" => "firstName"],
                         ["name" => "lastName"],
@@ -37,7 +37,7 @@ return [
             ]
         ],[
             "name" => "persons",
-            "providerName" => "person-provider",
+            "provider" => "person-provider",
             "columns" => [
                 ["name" => "firstName"],
                 ["name" => "lastName"]

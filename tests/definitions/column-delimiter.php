@@ -9,7 +9,7 @@ return [
     "sessions" => [
         [
             "name" => "order",
-            "providerName" => "order-provider",
+            "provider" => "order-provider",
             "columns" => [
                 ["name" => "type", "value" => "010"],
                 ["name" => "number"],
@@ -24,7 +24,7 @@ return [
             "sessions" => [
                 [
                     "name"  => "details",
-                    "providerName" => "detail-provider",
+                    "provider" => "detail-provider",
                     "columns" => [
                         ["name" => "type", "value" => "020"],
                         ["name" => "product_id"],

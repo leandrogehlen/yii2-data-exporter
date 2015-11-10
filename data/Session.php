@@ -19,7 +19,7 @@ class Session extends Element
     /**
      * @var string the provider name.
      */
-    public $providerName;
+    public $provider;
 
     /**
      * @var boolean whether this session will be executed. Defaults to true.
@@ -43,7 +43,7 @@ class Session extends Element
      * ```php
      * [
      *     ['name' => 'id', 'align' => 'left', 'size' => 10, 'charComplete' => 0],
-     *     ['name' => 'firstName', 'dictionaryName' => 'text']
+     *     ['name' => 'firstName', 'dictionary' => 'text']
      *     ['name' => 'birthDate', 'expression' => 'return date('Y-m-d');']
      * ]
      * ```
