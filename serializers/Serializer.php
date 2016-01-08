@@ -141,7 +141,7 @@ abstract class Serializer extends Object
             return $value;
         } else {
             $padding = $this->toPadding($align);
-            return ($size > strlen($value)) ? str_pad($value, $size, $complete, $padding) : substr($value, 0, $size);
+            return ($size > strlen($value) && $complete !== null) ? str_pad($value, $size, $complete, $padding) : substr($value, 0, $size);
         }
     }
 
