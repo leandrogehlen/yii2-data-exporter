@@ -54,7 +54,7 @@ return [
         [
             "name" => "active",
             "label" => "Active",
-            "value" => true
+            "value" => 1
         ]
     ],
     "events" => [
