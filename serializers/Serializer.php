@@ -62,7 +62,7 @@ abstract class Serializer extends Object
                 if ($value === null) {
                     $parameter = $this->exporter->findParameter($name);
                     if ($parameter !== null) {
-                        $value = is_callable($parameter->value) ? call_user_func($parameter->value) : $value;
+                        $value = is_callable($parameter->value) ? call_user_func($parameter->value) : $parameter->value;
                     }
                 }
                 $params[$name] = $value;
