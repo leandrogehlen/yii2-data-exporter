@@ -55,8 +55,8 @@ abstract class Serializer extends Object
     {
         $params = [];
         if (preg_match_all('/:\w+/', $provider->query, $matches)) {
-            foreach ($matches as $param) {
-                $name = substr($param[0], 1);
+            foreach ($matches[0] as $param) {
+                $name = substr($param, 1);
                 $value = ArrayHelper::getValue($master, $name);
 
                 if ($value === null) {
