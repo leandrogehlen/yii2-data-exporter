@@ -39,7 +39,7 @@ return [
     "providers" => [
         [
             "name" => "order-provider",
-            "query" => "select invoice.*, person.firstName, person.salary from invoice join person on (person.id = invoice.person_id) where invoice.created_at = :created_at"
+            "query" => "select invoice.*, person.firstName, person.salary from invoice join person on (person.id = invoice.person_id) where invoice.created_at = :created_at and person.active = :active"
         ],[
             "name" => "detail-provider",
             "query" => "select * from invoice_details where invoice_id = :id"
@@ -50,6 +50,11 @@ return [
             "name" => "created_at",
             "label" => "Created At",
             "value" => function() { return date('Y-m-d'); }
+        ],
+        [
+            "name" => "active",
+            "label" => "Active",
+            "value" => 1
         ]
     ],
     "events" => [

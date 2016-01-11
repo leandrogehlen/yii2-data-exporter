@@ -55,14 +55,14 @@ abstract class Serializer extends Object
     {
         $params = [];
         if (preg_match_all('/:\w+/', $provider->query, $matches)) {
-            foreach ($matches as $param) {
-                $name = substr($param[0], 1);
+            foreach ($matches[0] as $param) {
+                $name = substr($param, 1);
                 $value = ArrayHelper::getValue($master, $name);
 
                 if ($value === null) {
                     $parameter = $this->exporter->findParameter($name);
                     if ($parameter !== null) {
-                        $value = is_callable($parameter->value) ? call_user_func($parameter->value) : $value;
+                        $value = is_callable($parameter->value) ? call_user_func($parameter->value) : $parameter->value;
                     }
                 }
                 $params[$name] = $value;
@@ -141,7 +141,7 @@ abstract class Serializer extends Object
             return $value;
         } else {
             $padding = $this->toPadding($align);
-            return ($size > strlen($value)) ? str_pad($value, $size, $complete, $padding) : substr($value, 0, $size);
+            return ($size > strlen($value) && $complete !== null) ? str_pad($value, $size, $complete, $padding) : substr($value, 0, $size);
         }
     }
 
