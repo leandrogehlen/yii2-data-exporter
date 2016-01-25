@@ -1,5 +1,7 @@
 <?php
 
+use yii\db\Query;
+
 return [
     "description" => "Orders data export",
     "sessions" => [
@@ -47,10 +49,19 @@ return [
     "providers" => [
          [
             "name" => "invoice-provider",
-            "query" => "select invoice.*, person.firstName, person.lastName from invoice join person on (person.id = invoice.person_id)"
+            "query" => (new Query())
+                ->select([
+                    'invoice.*',
+                    'person.firstName',
+                    'person.lastName'
+                ])
+                ->from('invoice')
+                ->innerJoin('person', 'person.id = invoice.person_id')
          ],[
             "name" => "detail-provider",
-            "query" => "select * from invoice_details where invoice_id = :id"
+            "query" => (new Query())
+                ->from('invoice_details')
+                ->where('invoice_id = :id')
          ],[
             "name" => "person-provider",
             "query" => "select * from person"

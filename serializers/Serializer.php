@@ -7,7 +7,9 @@ use leandrogehlen\exporter\data\Dictionary;
 use leandrogehlen\exporter\data\Exporter;
 use leandrogehlen\exporter\data\Provider;
 use leandrogehlen\exporter\data\Session;
+use yii\base\InvalidConfigException;
 use yii\base\Object;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 
@@ -50,11 +52,23 @@ abstract class Serializer extends Object
      * Executes the query statement and returns ALL rows at once.
      * @param Provider $provider the provider name
      * @return array
+     * @throws InvalidConfigException
      */
     protected function executeProvider($provider, $master)
     {
+        $db = $this->exporter->db;
+        $query = $provider->query;
+
+        if ($query instanceof Query) {
+            list($sql) = $db->getQueryBuilder()->build($query);
+        } elseif (is_string($query)) {
+            $sql = $query;
+        } else {
+            throw new InvalidConfigException('The query of provider "' . $provider->name .  '" must be string or Query object');
+        }
+
         $params = [];
-        if (preg_match_all('/:\w+/', $provider->query, $matches)) {
+        if (preg_match_all('/:\w+/', $sql, $matches)) {
             foreach ($matches[0] as $param) {
                 $name = substr($param, 1);
                 $value = ArrayHelper::getValue($master, $name);
@@ -69,7 +83,7 @@ abstract class Serializer extends Object
             }
         }
 
-        return $this->exporter->db->createCommand($provider->query, $params)->queryAll();
+        return $db->createCommand($sql, $params)->queryAll();
     }
 
     /**

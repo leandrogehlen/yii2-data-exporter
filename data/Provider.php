@@ -10,7 +10,7 @@ namespace leandrogehlen\exporter\data;
 class Provider extends Element
 {
     /**
-     * @var string the SQL statement to be executed
+     * @var string|\yii\db\Query the SQL statement to be executed
      */
     public $query;
 }

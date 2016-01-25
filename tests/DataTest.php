@@ -215,6 +215,18 @@ class DataTest extends TestCase
         $exporter->execute();
     }
 
+    public function testInvalidQueryConfig()
+    {
+        $this->setExpectedExceptionRegExp('yii\base\InvalidConfigException', '/The query of provider "(.*)" must be string or Query object/');
+        $exporter = $this->createExporter('invalid-config');
+
+        $provider = $exporter->providers[0];
+        $provider->name = 'invalid-provider';
+        $provider->query = new Object();
+
+        $exporter->execute();
+    }
+
     /**
      * @param string $name
      * @param array $extra
