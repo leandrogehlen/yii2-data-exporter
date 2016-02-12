@@ -57,6 +57,7 @@ return [
                 ])
                 ->from('invoice')
                 ->innerJoin('person', 'person.id = invoice.person_id')
+                ->where(['person.active' => true])
          ],[
             "name" => "detail-provider",
             "query" => (new Query())

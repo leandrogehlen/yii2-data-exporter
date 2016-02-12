@@ -60,26 +60,28 @@ abstract class Serializer extends Object
         $query = $provider->query;
 
         if ($query instanceof Query) {
-            list($sql) = $db->getQueryBuilder()->build($query);
+            list($sql, $params) = $db->getQueryBuilder()->build($query);
         } elseif (is_string($query)) {
             $sql = $query;
+            $params = [];
         } else {
             throw new InvalidConfigException('The query of provider "' . $provider->name .  '" must be string or Query object');
         }
 
-        $params = [];
         if (preg_match_all('/:\w+/', $sql, $matches)) {
             foreach ($matches[0] as $param) {
                 $name = substr($param, 1);
-                $value = ArrayHelper::getValue($master, $name);
+                if (!isset($params[$name]) && !isset($params[$param])) {
+                    $value = ArrayHelper::getValue($master, $name);
 
-                if ($value === null) {
-                    $parameter = $this->exporter->findParameter($name);
-                    if ($parameter !== null) {
-                        $value = is_callable($parameter->value) ? call_user_func($parameter->value) : $parameter->value;
+                    if ($value === null) {
+                        $parameter = $this->exporter->findParameter($name);
+                        if ($parameter !== null) {
+                            $value = is_callable($parameter->value) ? call_user_func($parameter->value) : $parameter->value;
+                        }
                     }
+                    $params[$name] = $value;
                 }
-                $params[$name] = $value;
             }
         }
 
