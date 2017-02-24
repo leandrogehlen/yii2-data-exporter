@@ -9,11 +9,15 @@ namespace leandrogehlen\exporter\serializers;
  */
 class ColumnSerializer extends Serializer
 {
-
     /**
-     * @var string
+     * @var string the column separator
      */
     public $delimiter;
+
+    /**
+     * @var string the line break
+     */
+    public $lineBreak = "\n";
 
     /**
      * @inheritdoc
@@ -54,6 +58,6 @@ class ColumnSerializer extends Serializer
      */
     public function formatData($data)
     {
-        return implode("\n", $data);
+        return implode($this->lineBreak, $data);
     }
 }
